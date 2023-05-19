@@ -1,3 +1,10 @@
+# Custom
+.Rproj.user
+/man
+/example*.*
+
+
+
 # History files
 .Rhistory
 .Rapp.history
@@ -47,3 +54,4 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+inst/doc

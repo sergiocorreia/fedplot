@@ -1,0 +1,28 @@
+Type: Package
+Package: fedplot
+Title: Fed-style ggplot2 theme and functions
+Version: 0.1.0
+Author: Sergio Correia
+Maintainer: Sergio Correia <sergio.a.correia@frb.gov>
+Description: R package to create Fed-style ggplot2 charts
+License: MIT License
+Depends:
+    ggplot2 (>= 3.4.2)
+Imports:
+    dplyr (>= 1.1.1),
+    fs,
+    ggh4x (>= 0.2.4),
+    ggplot2 (>= 3.4.2),
+    glue,
+    grid,
+    readr,
+    systemfonts (>= 1.0.4)
+Suggests: 
+    jsonlite,
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
