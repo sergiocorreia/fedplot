@@ -1,3 +1,6 @@
+options(warn = 2)
+
+
 # TODO: Move to vignette
 
 
@@ -27,32 +30,34 @@ plotdata <- data |> pivot_longer(!Date, names_to = "source") #pivot for ggplot f
 source <- "Source: CoreLogic Real Estate Data; Zillow, Inc., Zillow Real Estate Data; S&P Case-Shiller Home Price Indices."
 font <- "ITCFranklinGothic LT BookCn"
 
+# WE NEED THIS ON WINDOWS EVERY TIME WE RUN THE PLOT!
+#extrafont::loadfonts(device = "win")
+
+
 ggplot(plotdata,
        aes(x = Date,
            y = value,
            group = source,
            color = source,
            linewidth = source)) +
-  #geom_recessions(fill="red", alpha=0.1) +
-  #geom_recessions(draw_top_bar=T) +
-  #geom_hline(yintercept=0, linewidth=0.5 / (72/25.4) ) +
-  #geom_line(na.rm=T) +
-  #labs(y = "12-month percent change", caption = source) +
-  #scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
-  #             breaks=seq(from=as.Date("2004-06-30"), to=as.Date("2023-06-30"), by="3 years"),
-  #             date_labels="%Y",
-  #             expand=expansion(mult=.05)) +
-  #scale_y_continuous(sec.axis = dup_axis(),
-  #                   breaks = seq(-25, 25, by=5),
-  #                   limits = c(-25, 25),
-  #                   expand = expansion(mult=0),
-  #                   labels = scales::label_number(style_negative = "minus")) +
+  geom_recessions(draw_top_bar=T) + # fill="red", alpha=0.1
+  geom_hline(yintercept=0, linewidth=0.5 / (72/25.4) ) +
+  geom_line(na.rm=T) +
+  labs(y = "12-month percent change") + #, caption = source) +
+  scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
+               breaks=seq(from=as.Date("2004-06-30"), to=as.Date("2023-06-30"), by="3 years"),
+               date_labels="%Y",
+               expand=expansion(mult=.05)) +
+  scale_y_continuous(sec.axis = dup_axis(),
+                     breaks = seq(-25, 25, by=5),
+                     limits = c(-25, 25),
+                     expand = expansion(mult=0),
+                     labels = scales::label_number(style_negative = "minus")) +
   #geom_text_lastonly(mapping=aes(label=strftime(Date, "%b")),
   #                   text_aes=list(family=font, color="black", hjust=1, size=7/ggplot2::.pt), nudge_y=-8) +
   theme_fed()
 
 # https://rdrr.io/r/base/strptime.html
 
-warnings()
-#save_plot('example-1', wide=F, extension='pdf')
+save_plot('example-1', wide=F, extension='pdf')
 

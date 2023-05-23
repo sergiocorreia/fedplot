@@ -52,6 +52,8 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
   # ITC Franklin Gothic LT Book Condensed   Full
   # ITC Franklin Gothic LT Book Condensed.afm.gz
 
+  #font_family = "ITCFranklinGothic LT BookCn"
+
   list(
     # Set color palette
     # TODO: improve this to avoid interp.
@@ -59,7 +61,7 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
     scale_color_fire(palette=fire_palettes[['main3']]),
 
     # Used to add secondary ticks
-    #ggplot2::guides(x = ggh4x::guide_axis_minor()),
+    ggplot2::guides(x = ggh4x::guide_axis_minor()),
 
     # Set line widths
     ggplot2::scale_linewidth_manual(values=0.5 * c(0.375, 0.75, 1.125, 1.5, rep(0.5, 10))),
