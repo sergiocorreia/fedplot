@@ -19,48 +19,20 @@ install_fed_font <- function() {
 # Change data elements overloading ggplot_add -----------------------------
 # See: https://yutani.rbind.io/post/2017-11-07-ggplot-add/
 
-null_function <- function(){
-  out <- geom_blank()
+#' @export
+null_function <- function() {
+  out <- ggplot2::geom_blank()
   class(out) <- c("null_function", class(out))
   out
 }
 
+#' @export
 ggplot_add.null_function <- function(object, plot, object_name) {
   # Swap title and y-axis title
   #plot$labels$xyz <- "foo"
   plot$labels$title <- plot$labels$y
   #plot$labels$y <- NULL # NULL
   plot
-}
-
-
-# Add text with the last date ---------------------------------------------
-# TODO/BUG: need to do as in ggplot_add.annotate_frequency
-# TODO: Pass font from main text
-
-#' @export
-geom_last_date <- function(date, nudge_y=0, nudge_x=0, family="ITCFranklinGothic LT BookCn") {
-
-  freq <- get_frequency(plot)
-  print(freq)
-  print('>>>>>>>>')
-  if (freq == "Monthly") {
-    f <- function(x) strftime(x, "%b")
-  }
-  else if (freq == "Quarterly") {
-    f <- function(x) paste0("Q", as.character(ceiling(strtoi(strftime(x, "%m"), base=10) / 3)))
-  }
-  else {
-    f <- function(x) x
-  }
-
-  geom_text_lastonly(mapping = ggplot2::aes(label = f(date)),
-                     text_aes = list(family = family,
-                                     color = "black",
-                                     hjust = 1,
-                                     size = 7 / .pt),
-                     nudge_y = nudge_y,
-                     nudge_x = nudge_x)
 }
 
 

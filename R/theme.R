@@ -82,7 +82,7 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
     ggplot2::coord_cartesian(clip="off"), # , expand = FALSE
 
     # Add frequency to top-left corner
-    #annotate_frequency(label=frequency, font_family=font_family, font_size=font_size-1),
+    annotate_frequency(label=frequency, font_family=font_family, font_size=font_size-1),
 
     # Delete this toy example
     # ggplot2::annotate("text", x=as_date("2014-01-01"), y=3, label = "italic"),

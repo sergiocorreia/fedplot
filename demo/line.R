@@ -1,4 +1,4 @@
-options(warn = 2)
+#options(warn = 2)
 
 
 # TODO: Move to vignette
@@ -31,7 +31,7 @@ source <- "Source: CoreLogic Real Estate Data; Zillow, Inc., Zillow Real Estate 
 font <- "ITCFranklinGothic LT BookCn"
 
 # WE NEED THIS ON WINDOWS EVERY TIME WE RUN THE PLOT!
-#extrafont::loadfonts(device = "win")
+extrafont::loadfonts(device = "win", quiet = TRUE)
 
 
 ggplot(plotdata,
@@ -43,7 +43,7 @@ ggplot(plotdata,
   geom_recessions(draw_top_bar=T) + # fill="red", alpha=0.1
   geom_hline(yintercept=0, linewidth=0.5 / (72/25.4) ) +
   geom_line(na.rm=T) +
-  labs(y = "12-month percent change") + #, caption = source) +
+  labs(y = "12-month percent change") + #, caption = source)
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
                breaks=seq(from=as.Date("2004-06-30"), to=as.Date("2023-06-30"), by="3 years"),
                date_labels="%Y",
@@ -53,8 +53,9 @@ ggplot(plotdata,
                      limits = c(-25, 25),
                      expand = expansion(mult=0),
                      labels = scales::label_number(style_negative = "minus")) +
-  #geom_text_lastonly(mapping=aes(label=strftime(Date, "%b")),
-  #                   text_aes=list(family=font, color="black", hjust=1, size=7/ggplot2::.pt), nudge_y=-8) +
+  geom_text_lastdate(nudge_y = -3) + #mapping=aes(label=strftime(Date, "%b")),
+                     #text_aes=list(family=font, color="black", hjust=1, size=7/ggplot2::.pt), nudge_y=-8) +
+  #geom_text_lastonly(mapping = ggplot2::aes(label = Date)) +
   theme_fed()
 
 # https://rdrr.io/r/base/strptime.html
