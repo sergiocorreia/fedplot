@@ -115,7 +115,7 @@ GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
       x = coords$xmin,
       y = coords$ymax,
       width = coords$xmax - coords$xmin,
-      height = grid::unit(2, "bigpts"),
+      height = grid::unit(1.5, "bigpts"),
       default.units = "native",
       just = c("left", "top"),
       gp = grid::gpar(

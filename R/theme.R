@@ -64,7 +64,11 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
     ggplot2::guides(x = ggh4x::guide_axis_minor()),
 
     # Set line widths
-    ggplot2::scale_linewidth_manual(values=0.5 * c(0.375, 0.75, 1.125, 1.5, rep(0.5, 10))),
+    #ggplot2::scale_linewidth_manual(values=0.5 * c(0.375, 0.75, 1.125, 1.5, rep(0.5, 10))),
+    ggplot2::scale_linewidth_manual(values = 0.375 * fedplot_constants$line_size_adjustment * c(seq(1, 4), rep(1, 10)) ),
+
+    # Set round caps for lines (doesn't work b/c lineend is not an aesthetic!)
+    #scale_lineend_manual(values = rep("round", 10)),
 
     # Add label of y-axis as title (needs to be before "ylab(NULL)")
     null_function(),

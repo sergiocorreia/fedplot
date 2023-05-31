@@ -14,6 +14,9 @@
 #' @name fedplot
 #' @docType package
 #' @import ggplot2
+#' @importFrom dplyr select distinct filter mutate
+#' @importFrom rlang list2
+#' @importFrom lubridate round_date
 #' @importFrom glue glue
 #' @importFrom here here
 #' @importFrom systemfonts system_fonts
@@ -21,11 +24,16 @@
 "_PACKAGE"
 
 
-#' # Font support
+# Global options
+# See: https://stackoverflow.com/questions/12598242/global-variables-in-packages-in-r
+fedplot_constants <- new.env(parent = emptyenv())
+assign('line_size_adjustment', 25.4 / 72.27 * 96 / 72, fedplot_constants)
+
+#' ## Font support
 #'
 
 
-#' ## Installing fonts
+#' ### Installing fonts
 #'
 #' Installing fonts is a tricky and system-dependent process.
 #' Currently, only Linux font install is supported.
@@ -65,7 +73,7 @@ install_fed_font <- function() {
 }
 
 
-#' ## Loading fonts
+#' ### Loading fonts
 #'
 #' @export
 load_fed_font <- function() {

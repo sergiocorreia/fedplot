@@ -21,13 +21,20 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
   medium_font_size = font_size
   small_font_size = font_size - 1
 
-  base_line_size = 0.5 / (72 / 25.4) # stroke weight 0.5 points for axis
-  # ggplot measures size in mm; but we care about points
-  # note: 1 pt is only approx. equal to 0.35mm
-  # https://community.rstudio.com/t/why-does-ggplot-size-parameter-not-behave-consistently/21619/4
-  # There are 72.27 pts in a inch, so to convert from points to mm, just multiply by 72.27 / 25.4).
-  # (for Americans, note that 1cm=10mm)
-  # ggplot2:::.pt === 72.27 / 25.4
+  line_size_adjustment = 25.4 / 72.27 * 96 / 72 # = ggplot2::.stroke / ggplot2::.pt * 25.4 / 72.27
+  base_line_size = 0.5 * line_size_adjustment # stroke weight 0.5 points for axis
+
+  # See also:
+  # - https://cmap-repos.github.io/cmapplot/reference/dot-lwd.html
+  # - warning from help(grid::par):
+  #   The line width, a positive number, defaulting to 1. The interpretation is device-specific, and some devices do not implement line widths less than one. (See the help on the device for details of the interpretation.)
+  # Note that:
+  # - 25.4 / 72.27 * 96 / 72 = ggplot2::.stroke / ggplot2::.pt * 25.4 / 72.27
+  # - There are 72.27 pts in a inch, so to convert from points to mm, just multiply by 72.27 / 25.4).
+  # - ggplot measures size in mm; but we care about points
+  # - 1 pt is only approx. equal to 0.35mm; # https://community.rstudio.com/t/why-does-ggplot-size-parameter-not-behave-consistently/21619/4
+  # - ggplot2:::.pt === 72.27 / 25.4
+  # - ggplot2:::.stroke === 96 / 25.4
   
   ggplot2::theme_classic(
     base_family = font_family,
@@ -42,7 +49,7 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
     plot.title = element_text(
       hjust = 1,
       vjust = 1,
-      margin=margin(t=0+4, b=3)), # had to add top margin b/c of ggtext
+      margin=margin(t=0, b=unit(3, "bigpts")   )), # had to add top margin b/c of ggtext (not anymore?)
 
     # X axis title (indicating frequency: monthly, quarterly, etc.)
     axis.title.x = element_blank(),
@@ -60,10 +67,10 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
     axis.text.x.bottom = element_text(hjust = 0.5, margin = margin(t=6+6), debug=F),
     
     # Axis ticks
-    axis.ticks = element_line(linewidth = 0.5 / (72 / 25.4)),
+    axis.ticks = element_line(linewidth = 0.5 * line_size_adjustment),
     # Hack: we want to set it to zero but can't without also setting minor ticks to zero; so we set them to .06pt and then the minor ticks to 100*.06=6pt
-    axis.ticks.length = unit(-6, units='pt'),
-    axis.ticks.length.x = unit(-.06, units='pt'),
+    axis.ticks.length = unit(-6, units='bigpts'),
+    axis.ticks.length.x = unit(-.06, units='bigpts'),
     ggh4x.axis.ticks.length.minor = rel(100), # ggh4x axis tricks to fit year labels
 
     # Legend
@@ -72,9 +79,9 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
     legend.justification = c("right", "bottom"),
     legend.box.background = element_blank(), # fill='transparent'),
     legend.background = element_blank(), # fill='transparent'),
-    legend.key.height = unit(5.75, 'pt'),
-    legend.key.width = unit(5.75, 'pt'),
-    legend.spacing.x = unit(2, 'pt'),
+    legend.key.height = unit(5.75, 'bigpts'),
+    legend.key.width = unit(5.75, 'bigpts'),
+    legend.spacing.x = unit(2, 'bigpts'),
     legend.margin = margin(0,0,0,0),
     legend.box.margin = margin(0,0,0,0),
     legend.text = element_text(size=small_font_size, margin=margin(t=2)),

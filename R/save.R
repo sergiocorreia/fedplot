@@ -5,29 +5,30 @@ save_plot <- function(
   filename, # Excluding extension
   extension = c('pdf', 'eps', 'png', 'all'),
   path = NULL,
-  wide = FALSE,
+  size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'custom'),
   # Advanced options
   scale = 1,
   height = 99,
-  width = 174,
+  width = NULL,
   dpi = 300,
   plot = last_plot()
 ) {
 
   extension <- match.arg(arg=extension)
+  size <- match.arg(size)
   if (extension == "all") extension <- c('pdf', 'eps', 'png')
 
-  # Override width if wide is TRUE
-  if (wide) width <- 402
+  # Define width based on plot size
+  width <- switch(size,
+                  narrow = 192,
+                  wide = 420,
+                  box_narrow = 180,
+                  box_wide = 396)
 
   if (!is.null(path)) {
     # Path of the directory where plot is saved; defaults to working directory
     filename <- file.path(path, filename)
   }
-
-  # Parameters
-  height_points <- 99
-  width_points <- ifelse(wide, 402, 174)
 
   # Hack: enforce size of plot panel
   resized_plot <- plot +
@@ -67,7 +68,7 @@ save_plot <- function(
       #family = "Mistral",
       dpi = internal_dpi)
 
-    print(glue::glue("saved '{full_fn}' ({height_points}x{width_points}; wide={wide}; dpi={internal_dpi})"))
+    print(glue::glue("saved '{full_fn}' ({height}x{width}; size={size}; dpi={internal_dpi})"))
   }
 
 }
