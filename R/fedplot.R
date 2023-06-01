@@ -19,6 +19,8 @@
 #' @importFrom lubridate round_date
 #' @importFrom glue glue
 #' @importFrom here here
+#' @importFrom ggtext element_textbox_simple
+#' @importFrom ggrepel GeomTextRepel
 #' @importFrom systemfonts system_fonts
 #' @keywords internal
 "_PACKAGE"
@@ -26,8 +28,10 @@
 
 # Global options
 # See: https://stackoverflow.com/questions/12598242/global-variables-in-packages-in-r
+#' @export
 fedplot_constants <- new.env(parent = emptyenv())
 assign('line_size_adjustment', 25.4 / 72.27 * 96 / 72, fedplot_constants)
+assign('linewidth', 0.5 * fedplot_constants$line_size_adjustment, fedplot_constants)
 
 #' ## Font support
 #'
@@ -102,7 +106,6 @@ load_fed_font <- function() {
 #' Update fonts based on system -- *must* be done with .onLoad()
 #'
 #' @noRd
-#' @import rstudioapi
 .onLoad <- function(...) {
   load_fed_font()
 }

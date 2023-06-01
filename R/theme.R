@@ -55,20 +55,14 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
   #font_family = "ITCFranklinGothic LT BookCn"
 
   list(
-    # Set color palette
-    # TODO: improve this to avoid interp.
-    #scale_color_fire(palette=color_palette),
-    scale_color_fire(palette=fire_palettes[['main3']]),
+    
+    # Set palettes
+    ggplot2::discrete_scale("color", "fed_color_scale", fed_color_pal()),
+    ggplot2::discrete_scale("fill", "fed_fill_scale", fed_color_pal()),
+    ggplot2::discrete_scale("linewidth", "fed_linewidth_scale", fed_linewidth_pal()),
 
     # Used to add secondary ticks
     ggplot2::guides(x = ggh4x::guide_axis_minor()),
-
-    # Set line widths
-    #ggplot2::scale_linewidth_manual(values=0.5 * c(0.375, 0.75, 1.125, 1.5, rep(0.5, 10))),
-    ggplot2::scale_linewidth_manual(values = 0.375 * fedplot_constants$line_size_adjustment * c(seq(1, 4), rep(1, 10)) ),
-
-    # Set round caps for lines (doesn't work b/c lineend is not an aesthetic!)
-    #scale_lineend_manual(values = rep("round", 10)),
 
     # Add label of y-axis as title (needs to be before "ylab(NULL)")
     null_function(),
@@ -87,9 +81,6 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
 
     # Add frequency to top-left corner
     annotate_frequency(label=frequency, font_family=font_family, font_size=font_size-1),
-
-    # Delete this toy example
-    # ggplot2::annotate("text", x=as_date("2014-01-01"), y=3, label = "italic"),
 
     # Use fed theme()
     theme_fed_minimal(font_family = font_family, font_size = font_size, legend_position = legend_position)

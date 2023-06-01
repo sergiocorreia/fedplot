@@ -39,27 +39,17 @@ ggplot_add.null_function <- function(object, plot, object_name) {
 # Add top tick marks ------------------------------------------------------
 
 annotate_top_tick <- function() {
-  tick_width <- unit(0.5 * 96 / 72, "bigpts") # pkg.env$line_size_adjustment # "line stroke size: 0.5 point for all axis"
-  tick_margin <- 0.19 # add so the lines appear connected; unsure why 0.19
-  tick_length <- 12 - tick_margin # "top tick marks: 12 points"
-
+  tick_length <- unit(12, "bigpts")   # "top tick marks: 12 points"
+  tick_width <- unit(0.5 * 96 / 72, "bigpts")  # pkg.env$line_size_adjustment # "line stroke size: 0.5 point for all axis"
   zero <- unit(0, "npc")
   one <- unit(1, "npc")
-  margin <- unit(tick_margin, "bigpts")
-  length <- unit(tick_length, "bigpts")
 
-  gp <- grid::gpar(lwd = tick_width, lineend = "butt", clip="off", linesquare="bevel")
-
-  x0_left <- grid::convertWidth( -margin, "npc")
-  x1_left <- grid::convertWidth(zero + length, "npc")
-  x0_right <- grid::convertWidth(one - length, "npc")
-  x1_right <- grid::convertWidth(one + margin, "npc")
+  # See: https://www.rdocumentation.org/packages/grid/versions/3.6.2/topics/gpar
+  gp <- grid::gpar(lwd = tick_width, lineend = "round", linejoin="mitre") #, clip="off", linesquare="bevel")
 
   top_tick_grob <- grid::segmentsGrob(
-    #x0 = c(x0_left, x0_right),
-    x0 = grid::unit.c(-margin, one - length),
-    #x1 = grid:unit.c(margin, x1_right), c("points", "npc")),
-    x1 = grid::unit.c(length, one + margin),
+    x0 = grid::unit.c(zero, one - tick_length),
+    x1 = grid::unit.c(tick_length, one),
     y0 = c(1, 1),
     y1 = c(1, 1),
     gp=gp)

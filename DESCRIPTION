@@ -1,7 +1,7 @@
 Type: Package
 Package: fedplot
 Title: Fed-style ggplot2 theme and functions
-Version: 0.1.0
+Version: 0.2.0
 Author: Sergio Correia
 Maintainer: Sergio Correia <sergio.a.correia@frb.gov>
 Description: R package to create Fed-style ggplot2 charts
@@ -11,6 +11,12 @@ Depends:
 Imports:
     dplyr (>= 1.1.1),
     fs,
+    extrafont,
+    here,
+    lubridate,
+    rlang,
+    ggrepel,
+    ggtext,
     ggh4x (>= 0.2.4),
     ggplot2 (>= 3.4.2),
     glue,
@@ -27,3 +33,11 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
+Collate: 
+    'fedplot.R'
+    'colors.R'
+    'extensions.R'
+    'minimal_theme.R'
+    'recession_bars.R'
+    'save.R'
+    'theme.R'

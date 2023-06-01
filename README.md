@@ -1,11 +1,23 @@
-# fedplot
-R package to create ggplot2 charts in the style used by the Fed's FSR
+# `fedplot`: R package to create Fed-style ggplot2 charts
 
+<img src="example.jpg" alt="FSR Example" width="50"/>
 
+## Installation
 
+To install or update `fedplot`, run:
 
+```
+## Install current version from GitHub
+devtools::install_github("fedplot/fedplot", build_vignettes=FALSE)
 
-## TODO:
+## Then load the package as you would any other
+library(fedplot)
+```
 
-- Remove calls to `ggplot:::`  internal functions.
-- Inject https://cmap-repos.github.io/cmapplot/reference/geom_text_lastonly.html
+## TO-DO
+
+1. Add documentation and pkgdown website
+2. Convert `line.R` into a vignette.
+3. Add examples for bar charts
+4. Add wrappers to the geom_hline (maybe set as an option to `theme_fed`), to the scale_* functions, and to geom_line (so it uses the group aes into its color and linewidth aes, plus the other options).
+

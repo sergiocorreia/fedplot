@@ -7,7 +7,9 @@
 
 # Main function -----------------------------------------------------------
 
-theme_fed_minimal <- function(font_family, font_size, legend_position) {
+theme_fed_minimal <- function(font_family = "",
+                              font_size = 8,
+                              legend_position = c(.9, .1)) {
 
   fed_linewidth = 0.5 * (2.54 / 72 / 0.075)
   # 0.5     = pubtech linewidth in points
@@ -16,7 +18,7 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
   # 0.075cm = 0.75mm = ggplot unit of linewidth; see https://community.rstudio.com/t/units-of-linewidth/162885
   # Also see https://stackoverflow.com/a/53418570/3977107
 
-  update_geom_defaults("line", list(linewidth = fed_linewidth*(font_size/8)))
+  #update_geom_defaults("line", list(linewidth = fed_linewidth*(font_size/8)))
   
   medium_font_size = font_size
   small_font_size = font_size - 1
@@ -44,12 +46,14 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
   ) %+replace%
   
   ggplot2::theme(
+
+    # See: https://ggplot2.tidyverse.org/reference/theme.html
       
     # Title; which is actually the y-axis title (indicating the unit)
     plot.title = element_text(
       hjust = 1,
       vjust = 1,
-      margin=margin(t=0, b=unit(3, "bigpts")   )), # had to add top margin b/c of ggtext (not anymore?)
+      margin=margin(t=0, b=unit(3, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)
 
     # X axis title (indicating frequency: monthly, quarterly, etc.)
     axis.title.x = element_blank(),
@@ -58,6 +62,8 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
     #plot.caption = element_text(hjust = 0, margin=margin(t=6)),
     plot.caption = ggtext::element_textbox_simple(hjust = 0, margin=margin(t=6+1, r=0, b=3, l=0), lineheight=1.05),
 
+    # Axis lines
+    axis.line = element_line(lineend="round"),
 
     # Axis labels
     axis.text = element_text(size = medium_font_size),
@@ -67,7 +73,7 @@ theme_fed_minimal <- function(font_family, font_size, legend_position) {
     axis.text.x.bottom = element_text(hjust = 0.5, margin = margin(t=6+6), debug=F),
     
     # Axis ticks
-    axis.ticks = element_line(linewidth = 0.5 * line_size_adjustment),
+    axis.ticks = element_line(linewidth = 0.5 * line_size_adjustment, lineend="round"),
     # Hack: we want to set it to zero but can't without also setting minor ticks to zero; so we set them to .06pt and then the minor ticks to 100*.06=6pt
     axis.ticks.length = unit(-6, units='bigpts'),
     axis.ticks.length.x = unit(-.06, units='bigpts'),

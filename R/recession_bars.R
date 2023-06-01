@@ -13,10 +13,10 @@ update_recessions <- function() {
 # See also https://ggplot2.tidyverse.org/reference/ggplot2-ggproto.html
 
 #' @export
-geom_recessions <- function(fill = "#bfcbdc",
+geom_recessions <- function(fill = "#BDCFDE",
                             alpha = 1.0,
                             draw_top_bar = FALSE,
-                            top_fill = "#344660",
+                            top_fill = "#236192",
                             top_alpha = 1.0
                             )
 {
