@@ -1,4 +1,4 @@
-# `fedplot`: R package to create Fed-style ggplot2 charts
+# `fedplot`: R package to create Fed-style ggplot2 charts <img src="inst/figures/hexsticker.png" align="right" alt="fedplot logo" width="128" />
 
 This is an R package containing ggplot2 themes and extensions that replicate the Fed-style plots (as in the [FSR](https://www.federalreserve.gov/publications/financial-stability-report.htm)) within ggplot.
 
