@@ -1,6 +1,6 @@
 # `fedplot`: R package to create Fed-style ggplot2 charts
 
-<img src="example.jpg" alt="FSR Example" width="50"/>
+<img src="example.png" alt="FSR Example" width="50"/>
 
 ## Installation
 
