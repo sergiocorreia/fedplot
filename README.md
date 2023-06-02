@@ -1,6 +1,6 @@
 # `fedplot`: Fed-style ggplot2 charts <img src="inst/figures/hexsticker.png" align="right" alt="fedplot logo" width="128" />
 
-This is an R package containing ggplot2 themes and extensions that replicate the Fed-style plots (as in the [FSR](https://www.federalreserve.gov/publications/financial-stability-report.htm)) within ggplot.
+This is an R package that allows users to replicate Fed-style plots (e.g. [FSR](https://www.federalreserve.gov/publications/financial-stability-report.htm), [Tealbook](https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm)) within ggplot. It contains a theme and several ggplot functions to customize and export figures.
 
 It's currently a work-in-progress (version 0.2), with planned improvements including:
 
@@ -18,7 +18,7 @@ It's currently a work-in-progress (version 0.2), with planned improvements inclu
 library(fedplot)
 
 ggplot(plotdata, aes(x = Date, y = value, group=source)) +
-  geom_recessions(draw_top_bar=T)
+  geom_recessions()
   geom_hline(yintercept = 0, linewidth = fedplot_constants$linewidth, linejoin = "mitre", lineend = "round") +
   geom_line(aes(color=source, linewidth=source), na.rm = T, linejoin = "mitre", lineend = "round") +
   labs(y = "12-month percent change") +
@@ -34,7 +34,7 @@ ggplot(plotdata, aes(x = Date, y = value, group=source)) +
   annotate_last_date(nudge_y = -3, nudge_x = 300)
   theme_fed(legend_position = c(.8, .1))
 
-save_plot('image3', size='n', extension='all')
+save_plot('my-figure', size='narrow', extension='png')
 ```
 
 <p align="center">
@@ -43,7 +43,7 @@ save_plot('image3', size='n', extension='all')
 
 ## Installation
 
-To install or update `fedplot`, run:
+To install or update `fedplot`:
 
 ```
 ## Install current version from GitHub
@@ -53,10 +53,14 @@ devtools::install_github("fedplot/fedplot", build_vignettes=FALSE)
 library(fedplot)
 ```
 
-## TO-DO
+## To-Do
 
 1. Add documentation and pkgdown website
 2. Convert `line.R` into a vignette.
 3. Add examples for bar charts
 4. Add wrappers to the geom_hline (maybe set as an option to `theme_fed`), to the scale_* functions, and to geom_line (so it uses the group aes into its color and linewidth aes, plus the other options).
 
+
+## Acknowledgments
+
+- Recession bars as well as some design ideas are based on the great [`cmapplot`](https://github.com/CMAP-REPOS/cmapplot/) library mantained by the Chicago Metropolitan Agency for Planning. 
