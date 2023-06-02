@@ -59,8 +59,8 @@ save_plot <- function(
     device = NULL
     # Need to use Cairo as device; otherwise PDF won't embed fonts
     # https://www.andrewheiss.com/blog/2017/09/27/working-with-r-cairo-graphics-custom-fonts-and-ggplot/
-    if (ext == "pdf") device = cairo_pdf
-    if (ext == "eps") device = cairo_ps
+    if (ext == "pdf") device = grDevices::cairo_pdf
+    if (ext == "eps") device = grDevices::cairo_ps
 
     # Save PDF figure
     ggplot2::ggsave(
@@ -72,10 +72,6 @@ save_plot <- function(
       width = total_width,
       bg = 'white',
       device = device,
-      #family = "ITCFranklinGothic LT BookCn",
-      # ITC Franklin Gothic LT Book Condensed
-      #family = "ITC Franklin Gothic LT Book Condensed",
-      #family = "Mistral",
       dpi = internal_dpi)
 
     print(glue::glue("saved '{full_fn}' ({height}x{width}; size={size}; dpi={internal_dpi})"))

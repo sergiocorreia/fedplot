@@ -3,5 +3,9 @@
 ^data-raw$
 ^_pkgdown\.yml$
 ^docs$
+^internal$
 ^pkgdown$
-^\\image*\.*$
+^image*.*$
+^example*.*$
+^DEVELOPMENT.md$
+^LICENSE.md$

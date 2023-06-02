@@ -2,6 +2,9 @@
 #' See also: https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions
 #' @export
 update_recessions <- function() {
+    # Silence notes in package check
+    peak <- trough <- NULL
+
     url <- "http://www2.nber.org/data/cycles/business_cycle_dates.json"
     recessions <- jsonlite::fromJSON(url) |> dplyr::mutate(peak = as.Date(peak), trough = as.Date(trough))
     readr::write_tsv(recessions, "recessions.tsv")
@@ -27,7 +30,7 @@ geom_recessions <- function(fill = "#BDCFDE",
 
     # return a series of gg objects to ggplot
     list(
-      layer(
+      ggplot2::layer(
         geom = GeomRecessions,
         mapping = NULL,
         data = NULL,
@@ -91,7 +94,7 @@ GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
   draw_panel = function(self, data, panel_params, coord, draw_top_bar = TRUE, lineend = "butt", linejoin = "mitre") {
     coords <- coord$transform(data, panel_params)
 
-    grob1 <- ggplot2:::ggname("geom_rect", grid::rectGrob(
+    grob1 <- ggname("geom_rect", grid::rectGrob(
       x = coords$xmin,
       y = coords$ymax,
       width = coords$xmax - coords$xmin,
@@ -111,7 +114,7 @@ GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
       return(grob1)
     }
 
-    grob2 <- ggplot2:::ggname("geom_rect", grid::rectGrob(
+    grob2 <- ggname("geom_rect", grid::rectGrob(
       x = coords$xmin,
       y = coords$ymax,
       width = coords$xmax - coords$xmin,

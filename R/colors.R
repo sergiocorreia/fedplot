@@ -1,7 +1,5 @@
 # This code handles the color palettes used in FIRE/BSVR/FSR plots
 
-#' @include fedplot.R
-
 # References --------------------------------------------------------------
 # - Colors based on color_scheme.R
 # - https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2
@@ -12,7 +10,7 @@
 # Linewidth palettes ------------------------------------------------------
 
 # 0.375, 0.70, 1.125, 1.5, then just 0.375
-fsr_linewidths <- 0.375 * fedplot_constants$line_size_adjustment * c(seq(1, 4), rep(1, 10))
+fsr_linewidths <- 0.375 * getOption("fedplot.linewidth_adj") * c(seq(1, 4), rep(1, 10))
 
 fed_linewidth_pal <- function(palette=fsr_linewidths, ...) {
     function(n) {
@@ -94,7 +92,7 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
   
   if (use_ramp) {
     # Supports many colors (b/c int interpolates) but doesn't use the exact colors we need
-    colorRampPalette(pal, ...)
+    grDevices::colorRampPalette(pal, ...)
   }
   else {
     # Just use the exact colors we need but up to the palette size (afterwards, we get an error)
@@ -107,47 +105,3 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
   }
 
 }
-
-
-
-
-
-# ggplot2 scales ----------------------------------------------------------
-
-#' NOTE: UNUSED. Color scale constructor for fire colors
-#'
-#' @param palette Character name of palette in fire_palettes
-#' @param discrete Boolean indicating whether color aesthetic is discrete or not
-#' @param reverse Boolean indicating whether the palette should be reversed
-#' @param ... Additional arguments passed to discrete_scale() or
-#'            scale_color_gradientn(), used respectively when discrete is TRUE or FALSE
-#'
-scale_color_fire <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- fire_pal(palette = palette, reverse = reverse)
-
-  if (discrete) {
-    discrete_scale("colour", paste0("fire_", palette), palette = pal, ...)
-  } else {
-    scale_color_gradientn(colors = pal(256), ...)
-  }
-}
-
-#' Fill scale constructor for fire colors
-#'
-#' @param palette Character name of palette in fire_palettes
-#' @param discrete Boolean indicating whether color aesthetic is discrete or not
-#' @param reverse Boolean indicating whether the palette should be reversed
-#' @param ... Additional arguments passed to discrete_scale() or
-#'            scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE
-#'
-scale_fill_fire <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- fire_pal(palette = palette, reverse = reverse)
-
-  if (discrete) {
-    discrete_scale("fill", paste0("fire_", palette), palette = pal, ...)
-  } else {
-    scale_fill_gradientn(colors = pal(256), ...)
-  }
-}
-
-

@@ -7,8 +7,8 @@
 
 # Main function -----------------------------------------------------------
 
-theme_fed_minimal <- function(font_family = "",
-                              font_size = 8,
+theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
+                              font_size = getOption("fedplot.font_size"),
                               legend_position = c(.9, .1)) {
 
   fed_linewidth = 0.5 * (2.54 / 72 / 0.075)
@@ -21,22 +21,14 @@ theme_fed_minimal <- function(font_family = "",
   #update_geom_defaults("line", list(linewidth = fed_linewidth*(font_size/8)))
   
   medium_font_size = font_size
-  small_font_size = font_size - 1
+  small_font_size = font_size * 7L / 8L
 
-  line_size_adjustment = 25.4 / 72.27 * 96 / 72 # = ggplot2::.stroke / ggplot2::.pt * 25.4 / 72.27
-  base_line_size = 0.5 * line_size_adjustment # stroke weight 0.5 points for axis
+  base_line_size = 0.5 * getOption("fedplot.linewidth_adj") # stroke weight 0.5 points for axis
 
   # See also:
   # - https://cmap-repos.github.io/cmapplot/reference/dot-lwd.html
   # - warning from help(grid::par):
   #   The line width, a positive number, defaulting to 1. The interpretation is device-specific, and some devices do not implement line widths less than one. (See the help on the device for details of the interpretation.)
-  # Note that:
-  # - 25.4 / 72.27 * 96 / 72 = ggplot2::.stroke / ggplot2::.pt * 25.4 / 72.27
-  # - There are 72.27 pts in a inch, so to convert from points to mm, just multiply by 72.27 / 25.4).
-  # - ggplot measures size in mm; but we care about points
-  # - 1 pt is only approx. equal to 0.35mm; # https://community.rstudio.com/t/why-does-ggplot-size-parameter-not-behave-consistently/21619/4
-  # - ggplot2:::.pt === 72.27 / 25.4
-  # - ggplot2:::.stroke === 96 / 25.4
   
   ggplot2::theme_classic(
     base_family = font_family,
@@ -50,52 +42,52 @@ theme_fed_minimal <- function(font_family = "",
     # See: https://ggplot2.tidyverse.org/reference/theme.html
       
     # Title; which is actually the y-axis title (indicating the unit)
-    plot.title = element_text(
+    plot.title = ggplot2::element_text(
       hjust = 1,
       vjust = 1,
-      margin=margin(t=0, b=unit(3, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)
+      margin = ggplot2::margin(t = 0, b = grid::unit(3, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)
 
     # X axis title (indicating frequency: monthly, quarterly, etc.)
-    axis.title.x = element_blank(),
+    axis.title.x = ggplot2::element_blank(),
 
     # Footnote
-    #plot.caption = element_text(hjust = 0, margin=margin(t=6)),
-    plot.caption = ggtext::element_textbox_simple(hjust = 0, margin=margin(t=6+1, r=0, b=3, l=0), lineheight=1.05),
+    #plot.caption = ggplot2::element_text(hjust = 0, margin=margin(t=6)),
+    plot.caption = ggtext::element_textbox_simple(hjust = 0, margin = ggplot2::margin(t=6+1, r=0, b=3, l=0), lineheight=1.05),
 
     # Axis lines
-    axis.line = element_line(lineend="round"),
+    axis.line = ggplot2::element_line(lineend="round"),
 
     # Axis labels
-    axis.text = element_text(size = medium_font_size),
-    axis.text.y.left = element_blank(),
-    axis.text.y.right = element_text(hjust = 1, margin = margin(l=6)),
+    axis.text = ggplot2::element_text(size = medium_font_size),
+    axis.text.y.left = ggplot2::element_blank(),
+    axis.text.y.right = ggplot2::element_text(hjust = 1, margin = ggplot2::margin(l=6)),
     # Hack: if we don't do 6+6=12 then ggh4x leaves no margin for the years (b/c of the ticks)
-    axis.text.x.bottom = element_text(hjust = 0.5, margin = margin(t=6+6), debug=F),
+    axis.text.x.bottom = ggplot2::element_text(hjust = 0.5, margin = ggplot2::margin(t=6+6), debug=F),
     
     # Axis ticks
-    axis.ticks = element_line(linewidth = 0.5 * line_size_adjustment, lineend="round"),
+    axis.ticks = ggplot2::element_line(linewidth = 0.5 * getOption("fedplot.linewidth_adj"), lineend="round"),
     # Hack: we want to set it to zero but can't without also setting minor ticks to zero; so we set them to .06pt and then the minor ticks to 100*.06=6pt
-    axis.ticks.length = unit(-6, units='bigpts'),
-    axis.ticks.length.x = unit(-.06, units='bigpts'),
+    axis.ticks.length = grid::unit(-6, units='bigpts'),
+    axis.ticks.length.x = grid::unit(-.06, units='bigpts'),
     ggh4x.axis.ticks.length.minor = rel(100), # ggh4x axis tricks to fit year labels
 
     # Legend
-    legend.title = element_blank(),
+    legend.title = ggplot2::element_blank(),
     legend.position = legend_position, # c(.9, .1),
     legend.justification = c("right", "bottom"),
-    legend.box.background = element_blank(), # fill='transparent'),
-    legend.background = element_blank(), # fill='transparent'),
-    legend.key.height = unit(5.75, 'bigpts'),
-    legend.key.width = unit(5.75, 'bigpts'),
-    legend.spacing.x = unit(2, 'bigpts'),
-    legend.margin = margin(0,0,0,0),
-    legend.box.margin = margin(0,0,0,0),
-    legend.text = element_text(size=small_font_size, margin=margin(t=2)),
+    legend.box.background = ggplot2::element_blank(), # fill='transparent'),
+    legend.background = ggplot2::element_blank(), # fill='transparent'),
+    legend.key.height = grid::unit(5.75, 'bigpts'),
+    legend.key.width = grid::unit(5.75, 'bigpts'),
+    legend.spacing.x = grid::unit(2, 'bigpts'),
+    legend.margin = ggplot2::margin(0,0,0,0),
+    legend.box.margin = ggplot2::margin(0,0,0,0),
+    legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=2)),
 
     # Entire plot
-    #plot.margin = margin(1, 1, 1, 1), # margin=1 works well on Windows but not on Fed Linux
-    #plot.margin = margin(4, 4, 4, 4),
-    plot.margin = margin(6, 6, 6, 6),
+    #plot.margin = ggplot2::margin(1, 1, 1, 1), # margin=1 works well on Windows but not on Fed Linux
+    #plot.margin = ggplot2::margin(4, 4, 4, 4),
+    plot.margin = ggplot2::margin(6, 6, 6, 6),
 
     #plot.background = ggplot2::element_rect(color='red', fill=NA),
     panel.background = ggplot2::element_blank(), #This sets the panel background as blank, removing the standard grey ggplot background colour from the plot

@@ -1,4 +1,34 @@
 url: ~
 template:
   bootstrap: 5
-
+reference:
+  - title: Available functions
+  - subtitle: Main functions
+    desc: >
+      Functions required to produce compliant charts.
+    contents:
+      - theme_fed
+      - geom_recessions
+      - geom_hline_zero
+      - annotate_last_date
+      - save_plot
+  - subtitle: Advanced functions
+    desc: >
+      Internal functions that might be of use to some users.
+    contents:
+      - update_recessions
+      - move_y_axis_title
+      - annotate_top_tick
+      - annotate_frequency
+      - theme_fed_minimal
+      - fed_color_pal
+      - fed_linewidth_pal
+      - install_fed_font
+      - load_fed_font
+- subtitle: Color palettes
+    desc: >
+      Predefined color palettes
+    contents:
+      - fsr_primary_colors
+      - fsr_secondary_colors
+      - bsvr_colors

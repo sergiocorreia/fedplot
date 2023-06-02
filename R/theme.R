@@ -33,27 +33,11 @@
 #' Time series -> ADD
 #' }
 #'
-#' @importFrom ggh4x guide_axis_minor
-theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
-                      font_size = 8,
+theme_fed <- function(font_family = getOption("fedplot.font_family"),
+                      font_size = getOption("fedplot.font_size"),
                       legend_position = c(.9, .1),
                       color_palette = "main",
                       frequency = "default") {
-
-  # TODO: FIX THE FONT MESS; it depends on the system...
-  # For font debugging:
-  # View(extrafont::fonttable())
-  # font_import() # Run once; slow
-  # fonts() # Check font name here
-  #fontfamily = "ITCFranklinGothic LT BookCn"
-  #fontfamily = "ITC Franklin Gothic LT Book Condensed"
-  # ITCFranklinGothic LT BookCn             FamilyName
-  # FranklinGothicLT-BookCnd                FontName
-  # ITC Franklin Gothic LT Book Condensed   Full
-  # ITC Franklin Gothic LT Book Condensed.afm.gz
-
-  #font_family = "ITCFranklinGothic LT BookCn"
-
   list(
     
     # Set palettes
@@ -65,7 +49,7 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
     ggplot2::guides(x = ggh4x::guide_axis_minor()),
 
     # Add label of y-axis as title (needs to be before "ylab(NULL)")
-    null_function(),
+    move_y_axis_title(),
 
     # Disable label of y-axis (will be placed as title)
     ggplot2::ylab(NULL),
@@ -80,7 +64,7 @@ theme_fed <- function(font_family = "ITCFranklinGothic LT BookCn",
     ggplot2::coord_cartesian(clip="off"), # , expand = FALSE
 
     # Add frequency to top-left corner
-    annotate_frequency(label=frequency, font_family=font_family, font_size=font_size-1),
+    annotate_frequency(label = frequency, font_family = font_family, font_size = font_size * 7L / 8L),
 
     # Use fed theme()
     theme_fed_minimal(font_family = font_family, font_size = font_size, legend_position = legend_position)

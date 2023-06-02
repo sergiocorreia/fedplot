@@ -1,18 +1,20 @@
+# -------------------------------------------------------------------------
 #' Complex extensions that involve hacks to ggplot internals
+# -------------------------------------------------------------------------
 
 
 # Change data elements overloading ggplot_add -----------------------------
 # See: https://yutani.rbind.io/post/2017-11-07-ggplot-add/
 
 #' @export
-null_function <- function() {
+move_y_axis_title <- function() {
   out <- ggplot2::geom_blank()
-  class(out) <- c("null_function", class(out))
+  class(out) <- c("move_y_axis_title", class(out))
   out
 }
 
 #' @export
-ggplot_add.null_function <- function(object, plot, object_name) {
+ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
   # Swap title and y-axis title
   #plot$labels$xyz <- "foo"
   plot$labels$title <- plot$labels$y
@@ -24,10 +26,10 @@ ggplot_add.null_function <- function(object, plot, object_name) {
 # Add top tick marks ------------------------------------------------------
 
 annotate_top_tick <- function() {
-  tick_length <- unit(12, "bigpts")   # "top tick marks: 12 points"
-  tick_width <- unit(0.5 * 96 / 72, "bigpts")  # pkg.env$line_size_adjustment # "line stroke size: 0.5 point for all axis"
-  zero <- unit(0, "npc")
-  one <- unit(1, "npc")
+  tick_length <- grid::unit(12, "bigpts")   # "top tick marks: 12 points"
+  tick_width <- grid::unit(0.5 * 96 / 72, "bigpts")  # "line stroke size: 0.5 point for all axis"
+  zero <- grid::unit(0, "npc")
+  one <- grid::unit(1, "npc")
 
   # See: https://www.rdocumentation.org/packages/grid/versions/3.6.2/topics/gpar
   gp <- grid::gpar(lwd = tick_width, lineend = "round", linejoin="mitre") #, clip="off", linesquare="bevel")
@@ -39,11 +41,11 @@ annotate_top_tick <- function() {
     y1 = c(1, 1),
     gp=gp)
 
-  layer(
-    data = ggplot2:::dummy_data(),
-    stat = StatIdentity,
-    position = PositionIdentity,
-    geom = GeomCustomAnn,
+  ggplot2::layer(
+    data = dummy_data(),
+    stat = ggplot2::StatIdentity,
+    position = ggplot2::PositionIdentity,
+    geom = ggplot2::GeomCustomAnn,
     inherit.aes = FALSE,
     params = list(
       grob = top_tick_grob,
@@ -55,11 +57,34 @@ annotate_top_tick <- function() {
   )
 }
 
-# Add last date of data ---------------------------------------------------
 
+# -------------------------------------------------------------------------
+#' Add last date of data
+#'
+#' This function annotates the chart with the last date where data is available.
+#' It does so by looking by first filtering out missing values in the y-axis
+#' variable and then computing for these rows the maximum of the x-axis variable.
+#'
+#' This function formats the last date string accordingly to its frequency
+#' and to publication standards. For instance, monthly data gets formatted
+#' as "Jan.", "Feb.", etc. with the exception of June and September that
+#' appear as "June" and "Sept." respectively.
+#'
+#' Note that this formatting is currently incomplete for frequencies other
+#' than monthly.
+#'
+#' @param font_family Font family. If empty, it will default to Franklin Gothic Condensed (unless the "fedplot.font_family" option is overwritten).
+#' @param font_size Font size. If empty, will default to size 7 (unless the "fedplot.font_size" option is overwritten).
+#' @param color Color of the text. Defaults to `black`.
+#' @param nudge_x Manually nudge the x-axis of the text. Alternative to the `repel` option.
+#' @param nudge_y Manually nudge the y-axis of the text. Alternative to the `repel` option.
+#' @param repel If set to `TRUE`, will try to reposition the text label to avoid overlapping it with other elements of the plot (such as the lines). It relies on the [ggrepel::geom_text_repel()] function of the [ggrepel] package.
+#' @inheritParams ggrepel::geom_text_repel
+#' @inheritParams ggplot2::geom_text
 #' @export
+# -------------------------------------------------------------------------
 annotate_last_date <- function(# Common options
-                               font_family = "ITCFranklinGothic LT BookCn",
+                               font_family = getOption("fedplot.font_family"),
                                font_size = 7,
                                color = "black",
                                # Manually move location
@@ -95,7 +120,7 @@ annotate_last_date <- function(# Common options
   position <- ggplot2::position_nudge(nudge_x, nudge_y)
 
   if (repel) {
-    layer(
+    ggplot2::layer(
       data = data,
       mapping = mapping,
       stat = stat,
@@ -134,7 +159,7 @@ annotate_last_date <- function(# Common options
     )
   }
   else {
-    layer(
+    ggplot2::layer(
       data = data,
       mapping = mapping,
       stat = stat,
@@ -166,22 +191,27 @@ setup_data_last_date = function(data, params) {
     dplyr::filter(!is.na(y)) |>
     dplyr::filter(x == max(x)) |>
     dplyr::mutate(label = date2label(x, frequency)) |>
-    dplyr::mutate(label = case_when(
+    dplyr::mutate(label = dplyr::case_when(
       label == "Jun." ~ "June",
       label == "Sep." ~ "Sept.")
     )
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @usage NULL
 #' @export
-GeomLastDate <- ggproto("GeomLastDate", GeomText,
+GeomLastDate <- ggplot2::ggproto("GeomLastDate", ggplot2::GeomText,
   required_aes = c("x", "y"),
   setup_data = setup_data_last_date
   #setup_params = function(data, params) { params }
 )
 
+
+#' @rdname ggplot2-ggproto
+#' @usage NULL
 #' @export
-GeomLastDateRepel <- ggproto("GeomLastDateRepel", ggrepel::GeomTextRepel,
+GeomLastDateRepel <- ggplot2::ggproto("GeomLastDateRepel", ggrepel::GeomTextRepel,
   required_aes = c("x", "y"),
   setup_data = setup_data_last_date
 )
@@ -217,20 +247,34 @@ date2label <- function(x, frequency) {
 
 
 
-# Add frequency label -----------------------------------------------------
+# -------------------------------------------------------------------------
+#' Add frequency label
+#'
+#' This function annotates the chart with the frequency used in the x-axis,
+#' placing a text label on the top-left of the plot.
+#' It automatically detects and labels daily, weekly, monthly, quarterly
+#' and annual frequencies.
+#' For other frequencies or custom text strings, you can use the `label` argument.
 
+#' @param label Text to be added. If equal to "" or "default", it will be inferred based on the x-axis variable.
+#' @param font_family Font family. If empty, it will default to Franklin Gothic Condensed (unless the "fedplot.font_family" option is overwritten).
+#' @param font_size Font size. If empty, will default to size 7 (unless the "fedplot.font_size" option is overwritten).
+#' @return None
 #' @export
-annotate_frequency <- function(label, font_family, font_size) {
+# -------------------------------------------------------------------------
+annotate_frequency <- function(label = "",
+                               font_family = getOption("fedplot.font_family"),
+                               font_size = getOption("fedplot.font_size") * 7L / 8L) {
   gp <- grid::gpar(fontfamily = font_family, fontsize = font_size)
-  x = unit(12, "bigpts")
-  y = unit(1, "npc") - unit(3, "bigpts")
+  x = grid::unit(12, "bigpts")
+  y = grid::unit(1, "npc") - grid::unit(3, "bigpts")
   text1_grob <- grid::textGrob(label, x=x, y=y, hjust=0, vjust=1, gp = gp)
 
-  out <- layer(
-    data = ggplot2:::dummy_data(),
-    stat = StatIdentity,
-    position = PositionIdentity,
-    geom = GeomCustomAnn,
+  out <- ggplot2::layer(
+    data = dummy_data(),
+    stat = ggplot2::StatIdentity,
+    position = ggplot2::PositionIdentity,
+    geom = ggplot2::GeomCustomAnn,
     inherit.aes = FALSE,
     params = list(
       grob = text1_grob,
@@ -250,7 +294,7 @@ ggplot_add.annotate_frequency <- function(object, plot, object_name) {
 
   # Infer the frequency label if not provided by user
   frequency_label <- object$geom_params$grob$label
-  if (frequency_label == "default") {
+  if (frequency_label == "default" || frequency_label == "") {
     object$geom_params$grob$label <- get_frequency(plot)
   }
   plot$layers <- append(plot$layers, object)
@@ -273,12 +317,3 @@ get_frequency <- function(plot) {
     "Daily"
   }
 }
-
-
-
-# Use round caps by default -----------------------------------------------
-# http://sape.inf.usi.ch/quick-reference/ggplot2/lineend
-#
-#scale_lineend_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-#  ggplot2:::manual_scale("lineend", values, breaks, ..., na.value = na.value)
-#}

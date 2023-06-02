@@ -1,7 +1,19 @@
 # Custom
 .Rproj.user
+.Rhistory
+.RData
 /man
 /image*.*
+
+# Copied from tidyr's gitignore
+inst/doc
+.httr-oauth
+revdep/checks
+revdep/library
+revdep/checks.noindex
+revdep/library.noindex
+revdep/data.sqlite
+docs
 
 
 # History files

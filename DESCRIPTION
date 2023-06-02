@@ -1,14 +1,18 @@
 Type: Package
 Package: fedplot
-Title: Fed-style ggplot2 theme and functions
-Version: 0.2.0
-Author: Sergio Correia
-Maintainer: Sergio Correia <sergio.a.correia@frb.gov>
-Description: R package to create Fed-style ggplot2 charts
-License: MIT License
-Depends:
-    ggplot2 (>= 3.4.2)
+Title: Fed-style ggplot2 Theme
+Version: 0.3.0
+Authors@R: c(
+    person("Sergio", "Correia", , "sergio.a.correia@frb.gov", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0914-8648"))
+  )
+Description: R package to create Fed-style ggplot2 charts.
+License: MIT + file LICENSE
+URL: https://sergiocorreia.github.io/fedplot, https://github.com/sergiocorreia/fedplot
+BugReports: https://github.com/sergiocorreia/fedplot/issues
+Depends: 
+    R (>= 4.2.0)
 Imports:
+    ggplot2 (>= 3.4.2),
     dplyr (>= 1.1.1),
     fs,
     extrafont,
@@ -18,11 +22,11 @@ Imports:
     ggrepel,
     ggtext,
     ggh4x (>= 0.2.4),
-    ggplot2 (>= 3.4.2),
     glue,
     grid,
     readr,
-    systemfonts (>= 1.0.4)
+    systemfonts (>= 1.0.4),
+    tibble,
 Suggests: 
     jsonlite,
     knitr,
@@ -31,14 +35,5 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
-Collate: 
-    'fedplot.R'
-    'colors.R'
-    'extensions.R'
-    'minimal_theme.R'
-    'recession_bars.R'
-    'save.R'
-    'theme.R'
-    'wrappers.R'
+RoxygenNote: 7.2.1

@@ -8,6 +8,7 @@ It's currently a work-in-progress (version 0.2), with planned improvements inclu
 2. Documentation and website.
 3. Better automated placement of legend and text labels.
 4. Better testing of different OSes and chart types.
+5. Document that fonts and other options can be changed through `options()`
 
 
 ## Quick example
@@ -19,7 +20,7 @@ library(fedplot)
 
 ggplot(plotdata, aes(x = Date, y = value, group=source)) +
   geom_recessions()
-  geom_hline(yintercept = 0, linewidth = fedplot_constants$linewidth, linejoin = "mitre", lineend = "round") +
+  geom_hline(yintercept = 0, linewidth = getOption("fedplot.linewidth_adj"), linejoin = "mitre", lineend = "round") +
   geom_line(aes(color=source, linewidth=source), na.rm = T, linejoin = "mitre", lineend = "round") +
   labs(y = "12-month percent change") +
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
@@ -69,3 +70,4 @@ library(fedplot)
 ## Useful references:
 
 - `ggplot_add` magic: https://www.simonpcouch.com/blog/ggplot-pipe-plus/ , https://yutani.rbind.io/post/2017-11-07-ggplot-add/
+- Editing the DESCRIPTION file: https://r-pkgs.org/description.html , https://kbroman.org/pkg_primer/pages/depends.html , https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-Dependencies
