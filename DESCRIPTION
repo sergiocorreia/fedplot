@@ -41,3 +41,4 @@ Collate:
     'recession_bars.R'
     'save.R'
     'theme.R'
+    'wrappers.R'

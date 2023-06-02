@@ -15,7 +15,7 @@ update_recessions <- function() {
 #' @export
 geom_recessions <- function(fill = "#BDCFDE",
                             alpha = 1.0,
-                            draw_top_bar = FALSE,
+                            draw_top_bar = TRUE,
                             top_fill = "#236192",
                             top_alpha = 1.0
                             )

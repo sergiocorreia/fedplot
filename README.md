@@ -64,3 +64,8 @@ library(fedplot)
 ## Acknowledgments
 
 - Recession bars as well as some design ideas are based on the great [`cmapplot`](https://github.com/CMAP-REPOS/cmapplot/) library mantained by the Chicago Metropolitan Agency for Planning. 
+
+
+## Useful references:
+
+- `ggplot_add` magic: https://www.simonpcouch.com/blog/ggplot-pipe-plus/ , https://yutani.rbind.io/post/2017-11-07-ggplot-add/

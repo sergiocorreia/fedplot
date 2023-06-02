@@ -33,6 +33,12 @@ fedplot_constants <- new.env(parent = emptyenv())
 assign('line_size_adjustment', 25.4 / 72.27 * 96 / 72, fedplot_constants)
 assign('linewidth', 0.5 * fedplot_constants$line_size_adjustment, fedplot_constants)
 
+
+#' @importFrom ggplot2 ggplot_add
+#' @export
+ggplot2::ggplot_add
+
+
 #' ## Font support
 #'
 

@@ -1,19 +1,4 @@
-# Install font (Linux Only) -----------------------------------------------
-# - Note that showtext is not useful as it does not embed the fonts
-# - Similarly, extrafont was difficult to use on Linux
-
-#' @export
-install_fed_font <- function() {
-  df <- systemfonts::system_fonts()
-  font_missing <- !any(df$family == "ITCFranklinGothic LT BookCn")
-  if (font_missing) {
-    print('Installing font file...')
-    font_file <- here("code", "ITC Franklin Gothic LT Book Condensed.ttf")
-    system("mkdir -p ~/.fonts")
-    system(glue::glue('cp "{font_file}" ~/.fonts'))
-    system("fc-cache -f -v")
-  }
-}
+#' Complex extensions that involve hacks to ggplot internals
 
 
 # Change data elements overloading ggplot_add -----------------------------

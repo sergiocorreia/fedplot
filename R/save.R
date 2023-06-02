@@ -5,10 +5,10 @@ save_plot <- function(
   filename, # Excluding extension
   extension = c('pdf', 'eps', 'png', 'all'),
   path = NULL,
-  size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'custom'),
+  size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'),
   # Advanced options
   scale = 1,
-  height = 99,
+  height = NULL,
   width = NULL,
   dpi = 300,
   plot = last_plot()
@@ -18,12 +18,20 @@ save_plot <- function(
   size <- match.arg(size)
   if (extension == "all") extension <- c('pdf', 'eps', 'png')
 
-  # Define width based on plot size
-  width <- switch(size,
-                  narrow = 192,
-                  wide = 420,
-                  box_narrow = 180,
-                  box_wide = 396)
+  # Define height and width based on plot size
+  if (is.null(width)) {
+    width <- switch(size,
+                    narrow = 192,
+                    wide = 420,
+                    box_narrow = 180,
+                    box_wide = 396,
+                    slides = 192)
+  }
+  if (is.null(height)) {
+    height <- switch(size,
+                    slides = 161,
+                    99)
+  }
 
   if (!is.null(path)) {
     # Path of the directory where plot is saved; defaults to working directory
@@ -33,6 +41,8 @@ save_plot <- function(
   # Hack: enforce size of plot panel
   resized_plot <- plot +
     ggh4x::force_panelsizes(rows = unit(height, "bigpts"), cols = unit(width, "bigpts"))
+  #print(plot + ggh4x::force_panelsizes(rows = 2 * unit(height, "bigpts"), cols = 2 * unit(width, "bigpts")))
+  #print(resized_plot)
 
   # Hack: compute plot width to save exactly that (else the plot has too much empty space around it)
   gt <- ggplot2::ggplotGrob(resized_plot)

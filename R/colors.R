@@ -114,7 +114,7 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
 
 # ggplot2 scales ----------------------------------------------------------
 
-#' Color scale constructor for fire colors
+#' NOTE: UNUSED. Color scale constructor for fire colors
 #'
 #' @param palette Character name of palette in fire_palettes
 #' @param discrete Boolean indicating whether color aesthetic is discrete or not

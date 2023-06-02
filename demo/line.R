@@ -15,7 +15,7 @@
 if (!"pacman" %in% installed.packages()) install.packages("pacman")
 pacman::p_load(tidyverse, ggplot2, here, lubridate, glue, scales)
 
-load_all()
+devtools::load_all()
 
 install_fed_font()
 load_fed_font() # extrafont::loadfonts(device = "win", quiet = TRUE)
@@ -29,12 +29,15 @@ plotdata <- data |> pivot_longer(!Date, names_to = "source") #pivot for ggplot f
 source <- "Source: CoreLogic Real Estate Data; Zillow, Inc., Zillow Real Estate Data; S&P Case-Shiller Home Price Indices."
 
 
+p <-
+ggplot(plotdata, aes(x = Date, y = value, group=source )) +
+  geom_recessions() + # draw_top_bar=T, fill="red", alpha=0.1
+  geom_hline_zero() +
 
-
-ggplot(plotdata, aes(x = Date, y = value, group=source)) +
-  geom_recessions(draw_top_bar=T) + # fill="red", alpha=0.1
-  geom_hline(yintercept = 0, linewidth = fedplot_constants$linewidth, linejoin = "mitre", lineend = "round") +
+  #geom_line_fed() +
+  #geom_line(aes(color=after_stat(factor(group)), linewidth=after_stat(factor(group))), na.rm = T, linejoin = "mitre", lineend = "round") +
   geom_line(aes(color=source, linewidth=source), na.rm = T, linejoin = "mitre", lineend = "round") +
+
   labs(y = "12-month percent change") +
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
                breaks=seq(from=as.Date("2004-06-30"), to=as.Date("2023-06-30"), by="3 years"),
@@ -49,6 +52,9 @@ ggplot(plotdata, aes(x = Date, y = value, group=source)) +
   annotate_last_date(nudge_y = -3, nudge_x = 300) + # (repel=T)
   theme_fed(legend_position = c(.8, .1))
 
+#View(layer_data(p))
+#View(inspect_after_stat(p=p))
+p
 
-save_plot('image3', size='n', extension='all')
+save_plot('image3', size='narrow', extension='pdf')
 
