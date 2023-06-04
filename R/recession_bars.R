@@ -1,7 +1,6 @@
 
 # -------------------------------------------------------------------------
-#' Update internal tab-separated file listing NBER business cycle dates
-#' See also: https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions
+#' Update internal tab-separated file listing \href{https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions}{NBER business cycle dates}
 #' @export
 # -------------------------------------------------------------------------
 update_recessions <- function() {
@@ -36,7 +35,7 @@ update_recessions <- function() {
 #' objects, for the main blue bar and the top dark blue bar.
 #'
 #' @section Inspiration and alternative implementations: 
-#' This function is heavily inspired on [cmapplot::geom_recessions] from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
+#' This function is heavily inspired on `geom_recessions` from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
 #'
 #' @param fill The color of the main bar; defaults to a light blue tint.
 #' @param alpha The alpha transparency of the main bar; defaults to 1.0 (totally opaque).

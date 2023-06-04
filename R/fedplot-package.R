@@ -34,13 +34,17 @@
 #' @importFrom systemfonts system_fonts
 #' @importFrom tibble tibble
 ## usethis namespace: end
-
-
-#' @importFrom ggplot2 ggplot_add
 NULL
 
-# #' @export
-# ggplot2::ggplot_add
 
+# ' @rdname reexports
+# ' @name ggplot_add
+# ' @usage ggplot_add.object(...)
 
-NULL
+#' Add custom objects to ggplot
+#'
+#  @importFrom ggplot2 ggplot_add
+#' @name ggplot_addx
+#' @keywords internal
+#' @export
+ggplot__add <- ggplot2::ggplot_add

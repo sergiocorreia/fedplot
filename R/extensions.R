@@ -14,7 +14,7 @@ move_y_axis_title <- function() {
 }
 
 #' @export
-ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
+ggplot__add.move_y_axis_title <- function(object, plot, object_name) {
   # Swap title and y-axis title
   #plot$labels$xyz <- "foo"
   plot$labels$title <- plot$labels$y
@@ -23,7 +23,15 @@ ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
 }
 
 
-# Add top tick marks ------------------------------------------------------
+# -------------------------------------------------------------------------
+#' Add wide ticks at the top of the chart
+#'
+#' This function adds ticks to the top-left and top-right corners of the charts.
+#' These ticks are twice as long as normal ticks and serve mostly as as
+#' a decoration.
+#'
+#' @export
+# -------------------------------------------------------------------------
 
 annotate_top_tick <- function() {
   tick_length <- grid::unit(12, "bigpts")   # "top tick marks: 12 points"
@@ -297,7 +305,7 @@ annotate_frequency <- function(label = "",
 
 
 #' @export
-ggplot_add.annotate_frequency <- function(object, plot, object_name) {
+ggplot__add.annotate_frequency <- function(object, plot, object_name) {
 
   # Infer the frequency label if not provided by user
   frequency_label <- object$geom_params$grob$label

@@ -1,6 +1,7 @@
 # -------------------------------------------------------------------------
 #' Load fonts and global parameters
-#' @name font_title
+#' @name font_title 
+#' @keywords internal
 # -------------------------------------------------------------------------
 NULL
 
@@ -47,8 +48,13 @@ NULL
 #' Internal ggplot2 functions that we have to copy (CRAN doesn't support :::)
 # -------------------------------------------------------------------------
 
+#' @keywords internal
 dummy_data <- function() data_frame0(x = NA, .size = 1)
+
+#' @keywords internal
 data_frame0 <- function(...) tibble::tibble(..., .name_repair = "minimal") # Replaced deprecated "data_frame" with "tibble"
+
+#' @keywords internal
 #' @importFrom grid grobName
 ggname <- function(prefix, grob) {
   grob$name <- grid::grobName(grob, prefix)

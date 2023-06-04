@@ -44,6 +44,6 @@ objects, for the main blue bar and the top dark blue bar.
 
 \section{Inspiration and alternative implementations}{
 
-This function is heavily inspired on \link[cmapplot:geom_recessions]{cmapplot::geom_recessions} from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
+This function is heavily inspired on \code{geom_recessions} from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
 }
 

@@ -9,3 +9,4 @@ dummy_data()
 \description{
 Internal ggplot2 functions that we have to copy (CRAN doesn't support :::)
 }
+\keyword{internal}

@@ -6,3 +6,4 @@
 \description{
 Load fonts and global parameters
 }
+\keyword{internal}

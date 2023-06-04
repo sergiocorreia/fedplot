@@ -3,7 +3,7 @@
 \docType{data}
 \name{.pt}
 \alias{.pt}
-\title{ggpplot2 fed theme, including advanced tweaks}
+\title{Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.}
 \format{
 An object of class \code{numeric} of length 1.
 }
@@ -11,6 +11,6 @@ An object of class \code{numeric} of length 1.
 .pt
 }
 \description{
-ggpplot2 fed theme, including advanced tweaks
+Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.
 }
-\keyword{datasets}
+\keyword{internal}

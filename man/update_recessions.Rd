@@ -2,12 +2,10 @@
 % Please edit documentation in R/recession_bars.R
 \name{update_recessions}
 \alias{update_recessions}
-\title{Update internal tab-separated file listing NBER business cycle dates
-See also: https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions}
+\title{Update internal tab-separated file listing \href{https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions}{NBER business cycle dates}}
 \usage{
 update_recessions()
 }
 \description{
-Update internal tab-separated file listing NBER business cycle dates
-See also: https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions
+Update internal tab-separated file listing \href{https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions}{NBER business cycle dates}
 }

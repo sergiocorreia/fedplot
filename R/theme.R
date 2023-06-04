@@ -1,4 +1,4 @@
-#' ggpplot2 fed theme, including advanced tweaks
+# ggpplot2 fed theme, including advanced tweaks
 
 # https://teunbrand.github.io/ggh4x/articles/PositionGuides.html#minor-ticks
 #library(ggh4x)
@@ -11,19 +11,22 @@
 #source(here("code", "fedtheme_extensions.R"))
 
 
+#' Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.
+#'
+#' @export
+#' @keywords internal
 .pt <- 72 / 25.4 # Alternative to ggplot::.pt === (72.27 / 25.4)
 
 
+# -------------------------------------------------------------------------
 #' Fed-style [ggplot] theme
 #'
-#' @md
 #' @param font_family base font family
 #' @param font_size base font family and size
 #' @param legend_position where to place the legend; default is `c(.9, .1)`
 #' @param color_palette color palette to use
 #' @param frequency string indicating the date frequency; autodetected by default
 #'
-#' @export
 #' @examples \dontrun{
 #' library(ggplot2)
 #' library(dplyr)
@@ -33,6 +36,9 @@
 #' Time series -> ADD
 #' }
 #'
+#' @export
+# -------------------------------------------------------------------------
+
 theme_fed <- function(font_family = getOption("fedplot.font_family"),
                       font_size = getOption("fedplot.font_size"),
                       legend_position = c(.9, .1),

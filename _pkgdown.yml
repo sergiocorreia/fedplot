@@ -1,21 +1,36 @@
 url: https://sergiocorreia.github.io/fedplot
+
+home:
+  title: Fed-style ggplot2 charts
+
+navbar:
+  structure:
+    left:  [reference]
+    #left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
+
+authors:
+  Sergio Correia:
+    href: http://scorreia.com/
+
 template:
   bootstrap: 5
+
+# https://pkgdown.r-lib.org/reference/build_reference.html
 reference:
-  - title: Available functions
-  - subtitle: Main functions
-    desc: >
-      Functions required to produce compliant charts.
-    contents:
+  - title: Main functions
+    desc: Functions required to produce compliant charts.
+  - contents:
       - theme_fed
       - geom_recessions
       - geom_hline_zero
       - annotate_last_date
       - save_plot
-  - subtitle: Advanced functions
-    desc: >
-      Internal functions that might be of use to some users.
-    contents:
+      - fontsupport
+
+  - title: Advanced functions and topics
+    desc: Internal functions that might be of use to some users.
+  - contents:
       - update_recessions
       - move_y_axis_title
       - annotate_top_tick
@@ -24,11 +39,21 @@ reference:
       - fed_color_pal
       - fed_linewidth_pal
       - install_fed_font
+      - GeomLastDate
+      - GeomLastDateRepel
       - load_fed_font
-  - subtitle: Color palettes
-    desc: >
-      Predefined color palettes
-    contents:
+      - customproto
+
+  - title: Color palettes
+    desc: Predefined color palettes
+  - contents:
       - fsr_primary_colors
       - fsr_secondary_colors
       - bsvr_colors
+
+  - title: Sample datasets
+    desc: Sample datasets used to showcase how to use the package
+  - contents:
+      - FSR_1_17
+      - FSR_2_4
+      - FSR_4_1

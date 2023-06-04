@@ -9,3 +9,4 @@
 ^example*.*$
 ^DEVELOPMENT.md$
 ^LICENSE.md$
+^\.github$

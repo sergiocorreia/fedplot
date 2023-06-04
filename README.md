@@ -1,4 +1,4 @@
-# `fedplot`: Fed-style ggplot2 charts <img src="inst/figures/hexsticker.png" align="right" alt="fedplot logo" width="128" />
+# `fedplot`: Fed-style ggplot2 charts <img src="man/figures/logo.png" align="right" alt="fedplot logo" width="128" />
 
 This is an R package that allows users to replicate Fed-style plots (e.g. [FSR](https://www.federalreserve.gov/publications/financial-stability-report.htm), [Tealbook](https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm)) within ggplot. It contains a theme and several ggplot functions to customize and export figures.
 
@@ -39,7 +39,7 @@ save_plot('my-figure', size='narrow', extension='png')
 ```
 
 <p align="center">
-  <img src="example.png" alt="FSR Example" width="55%"/>
+  <img src="./man/figures/example.png" alt="FSR Example" width="55%"/>
 </p>
 
 ## Installation

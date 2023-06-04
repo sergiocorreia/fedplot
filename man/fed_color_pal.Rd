@@ -2,7 +2,7 @@
 % Please edit documentation in R/colors.R
 \name{fed_color_pal}
 \alias{fed_color_pal}
-\title{Return function to interpolate color palette}
+\title{Closure to generate a color palette picker, given an input palette}
 \usage{
 fed_color_pal(palette = "fsr_primary", use_ramp = FALSE, reverse = FALSE, ...)
 }
@@ -15,6 +15,15 @@ fed_color_pal(palette = "fsr_primary", use_ramp = FALSE, reverse = FALSE, ...)
 
 \item{...}{Additional arguments to pass to \code{colorRampPalette()}}
 }
+\value{
+function
+}
 \description{
-Return function to interpolate color palette
+This internal function will take as an input either a) the name of a palete (
+one of \code{fsr_primary_colors}, \code{fsr_secondary_colors}, or \code{bsvr_color})
+or b) the palette itself as a vector of hex codes representing the colors.
+In turn, it will return a function \code{f(n)} that produces a vector
+containing the first \code{n} colors of the input palette.
+Optionally, it can use the input palette to generate a color ramp, so
+it can produce as many colors as required.
 }

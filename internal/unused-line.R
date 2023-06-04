@@ -11,8 +11,9 @@ geom_line_fed <- function(mapping = NULL, ...) {
 }
 
 
-#' @export
-ggplot_add.geom_line_fed <- function(object, plot, object_name) {
+# ' @importFrom ggplot2 ggplot_add
+# ' @export
+asdggplot_add.geom_line_fed <- function(object, plot, object_name) {
   #attributes(plot)
   browser()
   stop(123)

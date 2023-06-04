@@ -5,7 +5,19 @@
 # https://community.rstudio.com/t/custom-ggplot2-theme-that-capitalizes-title/39688/2
 
 
-# Main function -----------------------------------------------------------
+# -------------------------------------------------------------------------
+#' Internal Fed theme
+#'
+#' The `theme_fed()` object is composed of a theme, plus a number of functions
+#' that achieve features that the theme itself cannot achieve.
+#' This function corresponds to the theme itself, modifying `ggplot2::theme_classic`.
+#'
+#' @param font_family base font family
+#' @param font_size base font family and size
+#' @param legend_position where to place the legend; default is `c(.9, .1)`
+#'
+#' @export
+# -------------------------------------------------------------------------
 
 theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
                               font_size = getOption("fedplot.font_size"),
