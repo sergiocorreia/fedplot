@@ -14,7 +14,7 @@ move_y_axis_title <- function() {
 }
 
 #' @export
-ggplot__add.move_y_axis_title <- function(object, plot, object_name) {
+ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
   # Swap title and y-axis title
   #plot$labels$xyz <- "foo"
   plot$labels$title <- plot$labels$y
@@ -305,7 +305,7 @@ annotate_frequency <- function(label = "",
 
 
 #' @export
-ggplot__add.annotate_frequency <- function(object, plot, object_name) {
+ggplot_add.annotate_frequency <- function(object, plot, object_name) {
 
   # Infer the frequency label if not provided by user
   frequency_label <- object$geom_params$grob$label

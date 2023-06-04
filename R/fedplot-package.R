@@ -43,8 +43,8 @@ NULL
 
 #' Add custom objects to ggplot
 #'
-#  @importFrom ggplot2 ggplot_add
-#' @name ggplot_addx
+#' @importFrom ggplot2 ggplot_add
+#' @name ggplot_add
 #' @keywords internal
 #' @export
-ggplot__add <- ggplot2::ggplot_add
+ggplot2::ggplot_add
