@@ -5,6 +5,7 @@
 /man
 /image*.*
 /example.pdf
+/example.eps
 
 # Copied from tidyr's gitignore
 inst/doc
