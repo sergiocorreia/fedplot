@@ -25,7 +25,7 @@ reference:
       - fed_linewidth_pal
       - install_fed_font
       - load_fed_font
-- subtitle: Color palettes
+  - subtitle: Color palettes
     desc: >
       Predefined color palettes
     contents:

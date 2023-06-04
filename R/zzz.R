@@ -57,7 +57,7 @@ ggname <- function(prefix, grob) {
 
 
 # -------------------------------------------------------------------------
-#' ## Font support
+#' Font support
 #'
 #' `fedplot` was designed with a specific set of fonts in mind.
 #' You can use the [fedplot::install_fed_font()] and

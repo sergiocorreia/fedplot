@@ -4,6 +4,7 @@
 .RData
 /man
 /image*.*
+/example.pdf
 
 # Copied from tidyr's gitignore
 inst/doc
