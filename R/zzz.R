@@ -1,8 +1,10 @@
 # -------------------------------------------------------------------------
 #' Load fonts and global parameters
-#' @noRd
+#' @name font_title
 # -------------------------------------------------------------------------
+NULL
 
+#' @noRd
 .onLoad <- function(...) {
 
 	# Set package options
@@ -12,7 +14,7 @@
 
   	# Default font family is Franklin Gothic Condensed Medium (by ITC)
     fedplot.font_family = "ITCFranklinGothic LT BookCn",
-    
+
     # Default font size is 8pt
     fedplot.font_size = 8L,
 
@@ -31,13 +33,13 @@
     #    Note also that ggplot2:::.pt === 72.27 / 25.4
     # BUGBUG / QUESTION: should the last division be "72" instead of "72.27"???
     fedplot.linewidth_adj = 96 / 72 * 25.4 / 72.27
-  
+
   )
   toset <- !(names(op.fedplot) %in% names(op))
   if (any(toset)) options(op.fedplot[toset])
 
   load_fed_font()
-  
+
   invisible()
 }
 
@@ -47,7 +49,7 @@
 
 dummy_data <- function() data_frame0(x = NA, .size = 1)
 data_frame0 <- function(...) tibble::tibble(..., .name_repair = "minimal") # Replaced deprecated "data_frame" with "tibble"
-#' importFrom grid grobName
+#' @importFrom grid grobName
 ggname <- function(prefix, grob) {
   grob$name <- grid::grobName(grob, prefix)
   grob
@@ -57,19 +59,30 @@ ggname <- function(prefix, grob) {
 # -------------------------------------------------------------------------
 #' ## Font support
 #'
-#' `fedplot` was designed with a specific set of fonts in mind
+#' `fedplot` was designed with a specific set of fonts in mind.
+#' You can use the [fedplot::install_fed_font()] and
+#' [fedplot::load_fed_font()] to install a free version of these fonts.
+#'
+#' Note that these functions are currently only partly implemented across
+#' operating systems. For instance, `install_fed_font` is only implemented
+#' for Linux, and `load_fed_font` for Windows.
+#'
+#' Lastly, note you can also override the font used through [options()], such as in:
+#' `r options(fedplot.font_family = "Times New Roman")`
+#' @name fontsupport
 # -------------------------------------------------------------------------
+NULL
 
 
 # -------------------------------------------------------------------------
-#' ### Installing fonts
+#' Installing fonts
 #'
 #' Installing fonts is a tricky and system-dependent process.
 #' Currently, only Linux font install is supported and Windows fonts should
 #' installed manually.
-#' 
+#'
 #' Notes:
-#' 
+#'
 #' - Do not use `showtext`; it is not useful as it does not embed the fonts into the pdf/eps.
 #' - `extrafont` had some issues on Linux.
 #' - TODO: maybe we can just load from `extdata` without installing into `~/.fonts`?
@@ -110,7 +123,7 @@ install_fed_font <- function() {
 
 
 # -------------------------------------------------------------------------
-#' ### Loading fonts
+#' Loading fonts
 #'
 #' Load an already-installed font into R
 #'

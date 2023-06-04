@@ -74,8 +74,9 @@ fed_palettes <- list(
 #' Return function to interpolate color palette
 #'
 #' @param palette Character name of palette in fed_palettes
+#' @param use_ramp Boolean indicating whether to use a color ramp to interpolate colors (via [grDevices::colorRampPalette])
 #' @param reverse Boolean indicating whether the palette should be reversed
-#' @param ... Additional arguments to pass to colorRampPalette()
+#' @param ... Additional arguments to pass to `colorRampPalette()`
 #'
 fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = FALSE, ...) {
 

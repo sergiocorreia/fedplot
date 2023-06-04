@@ -1,6 +1,9 @@
+
+# -------------------------------------------------------------------------
 #' Update internal tab-separated file listing NBER business cycle dates
 #' See also: https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions
 #' @export
+# -------------------------------------------------------------------------
 update_recessions <- function() {
     # Silence notes in package check
     peak <- trough <- NULL
@@ -11,11 +14,39 @@ update_recessions <- function() {
 }
 
 
-# Based on https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html
-# In turn, based on https://github.com/tidyverse/ggplot2/blob/HEAD/R/geom-rect.R
-# See also https://ggplot2.tidyverse.org/reference/ggplot2-ggproto.html
 
-#' @export
+
+# -------------------------------------------------------------------------
+#' Add recession bars to time series graphs
+#'
+#' `geom_recessions` adds shaded recession bars to a time-series ggplot2 chart
+#' (a chart with a date object in the x-axis.) These recession bars correspond to all
+#' \href{https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions}{NBER-dated} recessions
+#' that overlap with the date range of the chart.
+#' By default, each recession bar will be drawn as a light blue rectangle
+#' spanning the entirety of the y-axis plus a dark blue rectangle drawn only over
+#' the topmost part of the chart.
+#'
+#' @section Implementation details: 
+#' Internally, `geom_recessions` works by adding a [fedplot::GeomRecessions]
+#' [ggplot2::ggproto] object, which inherits from [ggplot2::Geom]. It
+#' replaces the `setup_data` and `draw_panel` methods in order to
+#' load the recession data and draw the bars respectively.
+#' Further, the actual drawing is done by two [grid::rectGrob]
+#' objects, for the main blue bar and the top dark blue bar.
+#'
+#' @section Inspiration and alternative implementations: 
+#' This function is heavily inspired on [cmapplot::geom_recessions] from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
+#'
+#' @param fill The color of the main bar; defaults to a light blue tint.
+#' @param alpha The alpha transparency of the main bar; defaults to 1.0 (totally opaque).
+#' @param draw_top_bar Whether to draw the top bar or not.
+#' @param top_fill The color of the top bar; defaults to a dark blue tint.
+#' @param top_alpha The alpha transparency of the top blue bar; defaults to 1.0 (totally opaque).
+#'
+#'@export
+# -------------------------------------------------------------------------
+
 geom_recessions <- function(fill = "#BDCFDE",
                             alpha = 1.0,
                             draw_top_bar = TRUE,
@@ -48,7 +79,19 @@ geom_recessions <- function(fill = "#BDCFDE",
     )
 }
 
+#' Custom ggproto classes
+#'
+#' The `fedplot` package contains a few custom ggproto objects. For the
+#' most part, these are slightly tweaked versions of ggplot2's default proto
+#' objects. For more information about these, see [ggplot2::ggproto].
+#'
+#' @name customproto
+NULL
 
+#' @describeIn customproto Add recession bars.
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
   required_aes = c("x", "recess_table"),
   default_aes = ggplot2::aes(colour = NA,

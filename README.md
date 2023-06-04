@@ -13,7 +13,7 @@ It's currently a work-in-progress (version 0.2), with planned improvements inclu
 
 ## Quick example
 
-(Also see [here](/demo/lines.R) for a self-contained script)
+(Also see [here](/internal/line3.R) for a self-contained script)
 
 ```R
 library(fedplot)

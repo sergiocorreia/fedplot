@@ -79,6 +79,7 @@ annotate_top_tick <- function() {
 #' @param nudge_x Manually nudge the x-axis of the text. Alternative to the `repel` option.
 #' @param nudge_y Manually nudge the y-axis of the text. Alternative to the `repel` option.
 #' @param repel If set to `TRUE`, will try to reposition the text label to avoid overlapping it with other elements of the plot (such as the lines). It relies on the [ggrepel::geom_text_repel()] function of the [ggrepel] package.
+#' @param text_aes Named list, additional aesthetics to send to the geometry.
 #' @inheritParams ggrepel::geom_text_repel
 #' @inheritParams ggplot2::geom_text
 #' @export
@@ -183,8 +184,11 @@ annotate_last_date <- function(# Common options
 }
 
 
-#' @export
+# @export
 setup_data_last_date = function(data, params) {
+  # Silence notes in package check
+  x <- y <- NULL
+
   frequency <- get_frequency_internal(data)
 
   data |>
@@ -197,8 +201,9 @@ setup_data_last_date = function(data, params) {
     )
 }
 
-
-#' @rdname ggplot2-ggproto
+#' ggproto class used to place the text by annotate_last_date, based on GeomText
+#'
+#' @seealso ggproto
 #' @usage NULL
 #' @export
 GeomLastDate <- ggplot2::ggproto("GeomLastDate", ggplot2::GeomText,
@@ -208,7 +213,9 @@ GeomLastDate <- ggplot2::ggproto("GeomLastDate", ggplot2::GeomText,
 )
 
 
-#' @rdname ggplot2-ggproto
+#' ggproto class used to place the text by annotate_last_date, based on GeomTextRepel
+#'
+#' @seealso ggproto
 #' @usage NULL
 #' @export
 GeomLastDateRepel <- ggplot2::ggproto("GeomLastDateRepel", ggrepel::GeomTextRepel,

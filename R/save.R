@@ -1,4 +1,13 @@
 #' Export figure
+#' @param filename filename to be saved, excluding the path and extension.
+#' @param extension image extension; also defines the type of image. Valid values are c('pdf', 'eps', 'png', 'all'); note that 'all' will create all image types.
+#' @param path path where the file(s) will be saved
+#' @param size dimensions of the figure. For instance, 'narrow' creates default figures of 192x99 points. Valid values are c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'). Note that 'slides' will produce a 192x161 figure, ideal for two-pane Powerpoint slides.
+#' @param scale rescaling done by [ggplot2::ggsave]; experimental.
+#' @param height height of the figure in points (technically; bigpoints); useful when size='custom'.
+#' @param width height of the figure in points (technically; bigpoints); useful when size='custom'.
+#' @param dpi dots per inch of the output file(s). Typical values are 300 for print (the default) and rarely 72 for web image output. Note that for png images `save_plot()` multiples the dpi by 2, to compensate for the lower quality compared to vector formats (pdf, eps). Thus, the default dpi for png images is 600.
+#' @param plot ggplot2 to save. By default will save the plot last printed to screen.
 #' @export
 save_plot <- function(
     # Standard options
@@ -11,7 +20,7 @@ save_plot <- function(
   height = NULL,
   width = NULL,
   dpi = 300,
-  plot = last_plot()
+  plot = ggplot2::last_plot()
 ) {
 
   extension <- match.arg(arg=extension)
@@ -56,7 +65,7 @@ save_plot <- function(
     internal_dpi <- if (ext == "png") 2 * dpi else dpi
 
     # Select device
-    device = NULL
+    device <- NULL
     # Need to use Cairo as device; otherwise PDF won't embed fonts
     # https://www.andrewheiss.com/blog/2017/09/27/working-with-r-cairo-graphics-custom-fonts-and-ggplot/
     if (ext == "pdf") device = grDevices::cairo_pdf

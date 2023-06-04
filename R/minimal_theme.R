@@ -69,7 +69,7 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     # Hack: we want to set it to zero but can't without also setting minor ticks to zero; so we set them to .06pt and then the minor ticks to 100*.06=6pt
     axis.ticks.length = grid::unit(-6, units='bigpts'),
     axis.ticks.length.x = grid::unit(-.06, units='bigpts'),
-    ggh4x.axis.ticks.length.minor = rel(100), # ggh4x axis tricks to fit year labels
+    ggh4x.axis.ticks.length.minor = ggplot2::rel(100), # ggh4x axis tricks to fit year labels
 
     # Legend
     legend.title = ggplot2::element_blank(),
