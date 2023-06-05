@@ -12,14 +12,15 @@
 #' Linewidths used in the FSR.
 #'
 #' @export
-# @keywords internal
-# 0.375, 0.70, 1.125, 1.5, then just 0.375
+#' @keywords internal
 fsr_linewidths <- 0.375 * c(seq(1, 4), rep(1, 10))
+# 0.375, 0.70, 1.125, 1.5, then just 0.375
 
 fed_linewidth_palettes <- list(
   `fsr_linewidths` = fsr_linewidths,
   `bsvr_linewidths` = fsr_linewidths # Same as FSR (for now)
 )
+
 
 # -------------------------------------------------------------------------
 #' Closure to generate a linewidth palette picker, given an input palette

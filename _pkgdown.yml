@@ -23,8 +23,10 @@ reference:
   - contents:
       - theme_fed
       - geom_recessions
+      - geom_line_fed
       - geom_hline_zero
       - annotate_last_date
+      - scale_x_year
       - save_plot
       - fontsupport
 
