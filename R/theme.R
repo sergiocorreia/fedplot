@@ -14,7 +14,7 @@
 #' Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.
 #'
 #' @export
-#' @keyword internal
+#' @keywords internal
 .bigpt <- 72 / 25.4 # Alternative to ggplot::.pt === (72.27 / 25.4)
 
 
