@@ -14,7 +14,12 @@
 #' @export
 # @keywords internal
 # 0.375, 0.70, 1.125, 1.5, then just 0.375
-fsr_linewidths <- 0.375 * getOption("fedplot.linewidth_adj") * c(seq(1, 4), rep(1, 10))
+fsr_linewidths <- 0.375 * c(seq(1, 4), rep(1, 10))
+
+fed_linewidth_palettes <- list(
+  `fsr_linewidths` = fsr_linewidths,
+  `bsvr_linewidths` = fsr_linewidths # Same as FSR (for now)
+)
 
 # -------------------------------------------------------------------------
 #' Closure to generate a linewidth palette picker, given an input palette
@@ -29,13 +34,25 @@ fsr_linewidths <- 0.375 * getOption("fedplot.linewidth_adj") * c(seq(1, 4), rep(
 #' @export
 # -------------------------------------------------------------------------
 
-fed_linewidth_pal <- function(palette=fsr_linewidths) {
-    function(n) {
-      if (length(palette) < n) {
-        stop(glue::glue("Linewidth palette only has {length(palette)} values but {n} were requested."))
-      }
-      palette[1:n]
+fed_linewidth_pal <- function(palette="fsr_linewidths") {
+
+  # If palette is a string, select the corresponding element.
+  # Otherwise, assume it already exists (e.g. from another package)
+  if (is.character(palette) & length(palette) == 1) {
+    pal <- fed_linewidth_palettes[[palette]]
+  }
+  else {
+    pal <- palette
+  }
+
+  function(n) {
+    if (length(pal) < n) {
+      stop(glue::glue("Linewidth palette only has {length(pal)} values but {n} were requested."))
     }
+
+    # Return palette adjusted by linewidth
+    getOption("fedplot.linewidth_adj") * pal[1:n]
+  }
 }
 
 
@@ -86,7 +103,7 @@ bsvr_colors <- c(
   `beige`      = "#948B3D",
   `black`      = "#000000")
 
-fed_palettes <- list(
+fed_color_palettes <- list(
   `fsr_primary`   = fsr_primary_colors,
   `fsr_secondary` = fsr_secondary_colors,
   `bsvr`          = bsvr_colors,
@@ -105,7 +122,7 @@ fed_palettes <- list(
 #' Optionally, it can use the input palette to generate a color ramp, so
 #' it can produce as many colors as required.
 #'
-#' @param palette Character name of palette in fed_palettes
+#' @param palette Character name of palette in fed_color_palettes
 #' @param use_ramp Boolean indicating whether to use a color ramp to interpolate colors (via [grDevices::colorRampPalette])
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments to pass to `colorRampPalette()`
@@ -117,7 +134,7 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
   # If palette is a string, select the corresponding element.
   # Otherwise, assume it already exists (e.g. from another package)
   if (is.character(palette) & length(palette) == 1) {
-    pal <- fed_palettes[[palette]]
+    pal <- fed_color_palettes[[palette]]
   }
   else {
     pal <- palette

@@ -35,7 +35,8 @@ ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
 
 annotate_top_tick <- function() {
   tick_length <- grid::unit(12, "bigpts")   # "top tick marks: 12 points"
-  tick_width <- grid::unit(0.5 * 96 / 72, "bigpts")  # "line stroke size: 0.5 point for all axis"
+  #tick_width <- grid::unit(0.5 * 96 / 72, "bigpts")  # "line stroke size: 0.5 point for all axis"
+  tick_width <- grid::unit(0.5 * getOption("fedplot.linewidth_adj"), "bigpts")  # "line stroke size: 0.5 point for all axis"
   zero <- grid::unit(0, "npc")
   one <- grid::unit(1, "npc")
 
