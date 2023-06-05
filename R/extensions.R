@@ -35,8 +35,8 @@ ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
 
 annotate_top_tick <- function() {
   tick_length <- grid::unit(12, "bigpts")   # "top tick marks: 12 points"
-  #tick_width <- grid::unit(0.5 * 96 / 72, "bigpts")  # "line stroke size: 0.5 point for all axis"
-  tick_width <- grid::unit(0.5 * getOption("fedplot.linewidth_adj"), "bigpts")  # "line stroke size: 0.5 point for all axis"
+  # Note that 72.27/25.4 is equivalent to dividing by ggplot2::.pt
+  tick_width <- grid::unit(0.5 * getOption("fedplot.linewidth_adj") * 72.27 / 25.4, "bigpts")  # "line stroke size: 0.5 point for all axis"
   zero <- grid::unit(0, "npc")
   one <- grid::unit(1, "npc")
 
@@ -95,7 +95,7 @@ annotate_top_tick <- function() {
 # -------------------------------------------------------------------------
 annotate_last_date <- function(# Common options
                                font_family = getOption("fedplot.font_family"),
-                               font_size = 7,
+                               font_size = getOption("fedplot.font_size") * 7L / 8L,
                                color = "black",
                                # Manually move location
                                nudge_x = 0,

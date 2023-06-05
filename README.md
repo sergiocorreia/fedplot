@@ -61,6 +61,10 @@ library(fedplot)
 3. Add examples for bar charts
 4. Add wrappers to the geom_hline (maybe set as an option to `theme_fed`), to the scale_* functions, and to geom_line (so it uses the group aes into its color and linewidth aes, plus the other options).
 
+### Possible improvements
+
+1. Ensure that certain geometries (e.g. recession bars) are always in the background, independently on the order in which they were added. This can be achieved with e.g. `move_layers` from the [`gginnards`](https://docs.r4photobiology.info/gginnards/reference/delete_layers.html) package.
+
 
 ## Acknowledgments
 

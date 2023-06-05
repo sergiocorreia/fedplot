@@ -14,4 +14,5 @@ operating systems. For instance, \code{install_fed_font} is only implemented
 for Linux, and \code{load_fed_font} for Windows.
 
 Lastly, note you can also override the font used through \code{\link[=options]{options()}}, such as in:
+\code{options(fedplot.font_family = "Times New Roman")}
 }

@@ -74,7 +74,7 @@ ggname <- function(prefix, grob) {
 #' for Linux, and `load_fed_font` for Windows.
 #'
 #' Lastly, note you can also override the font used through [options()], such as in:
-#' `r options(fedplot.font_family = "Times New Roman")`
+#' `options(fedplot.font_family = "Times New Roman")`
 #' @name fontsupport
 # -------------------------------------------------------------------------
 NULL

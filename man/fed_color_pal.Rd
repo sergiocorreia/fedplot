@@ -7,7 +7,7 @@
 fed_color_pal(palette = "fsr_primary", use_ramp = FALSE, reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{Character name of palette in fed_palettes}
+\item{palette}{Character name of palette in fed_color_palettes}
 
 \item{use_ramp}{Boolean indicating whether to use a color ramp to interpolate colors (via \link[grDevices:colorRamp]{grDevices::colorRampPalette})}
 

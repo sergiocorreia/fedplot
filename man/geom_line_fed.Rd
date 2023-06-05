@@ -16,3 +16,12 @@ geom_line_fed(mapping = NULL, ...)
 that adds the required line colors and line widths.
 It also sets the \code{linejoin} and \code{lineend} attributes to their required values.
 }
+\details{
+It is equivalent to:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{geom_line(aes(color=<VAR>, linewidth=<VAR>),
+          na.rm = TRUE,
+          linejoin = "mitre",
+          lineend = "round")
+}\if{html}{\out{</div>}}
+}

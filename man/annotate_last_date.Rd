@@ -6,7 +6,7 @@
 \usage{
 annotate_last_date(
   font_family = getOption("fedplot.font_family"),
-  font_size = 7,
+  font_size = getOption("fedplot.font_size") * 7L/8L,
   color = "black",
   nudge_x = 0,
   nudge_y = 0,

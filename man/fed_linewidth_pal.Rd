@@ -4,7 +4,7 @@
 \alias{fed_linewidth_pal}
 \title{Closure to generate a linewidth palette picker, given an input palette}
 \usage{
-fed_linewidth_pal(palette = fsr_linewidths)
+fed_linewidth_pal(palette = "fsr_linewidths")
 }
 \arguments{
 \item{palette}{Vector of linewidths that will be used as a palette; must be larger than the maximum number of lines plotted.}
