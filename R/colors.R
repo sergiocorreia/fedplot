@@ -12,7 +12,7 @@
 #' Linewidths used in the FSR.
 #'
 #' @export
-#' @keywords internal
+# @keywords internal
 # 0.375, 0.70, 1.125, 1.5, then just 0.375
 fsr_linewidths <- 0.375 * getOption("fedplot.linewidth_adj") * c(seq(1, 4), rep(1, 10))
 
@@ -32,7 +32,7 @@ fsr_linewidths <- 0.375 * getOption("fedplot.linewidth_adj") * c(seq(1, 4), rep(
 fed_linewidth_pal <- function(palette=fsr_linewidths) {
     function(n) {
       if (length(palette) < n) {
-        stop(glue::glue("Linewidth palette only has {length(palette)} colors but {n} were requested."))
+        stop(glue::glue("Linewidth palette only has {length(palette)} values but {n} were requested."))
       }
       palette[1:n]
     }
@@ -133,7 +133,7 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
     # Just use the exact colors we need but up to the palette size (afterwards, we get an error)
     function(n) {
       if (length(pal) < n) {
-        stop(glue::glue("Color palette only has {length(pal)} colors but {n} were requested."))
+        stop(glue::glue("Color palette only has {length(pal)} values but {n} were requested."))
       }
       unname(pal[1:n])
     }

@@ -142,7 +142,7 @@ annotate_last_date <- function(# Common options
           family = font_family,
           color = color,
           hjust = 1,
-          size = font_size / .pt,
+          size = font_size / .bigpt,
           # Same as geom-text-repel.R:
           na.rm = na.rm,
           box.padding = box.padding, # ggrepel:::to_unit(box.padding),
@@ -181,7 +181,7 @@ annotate_last_date <- function(# Common options
           family = font_family,
           color = color,
           hjust = 1,
-          size = font_size / .pt,
+          size = font_size / .bigpt,
           na.rm = na.rm,
           ...
         ),

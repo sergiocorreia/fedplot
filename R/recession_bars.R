@@ -146,7 +146,7 @@ GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
       gp = grid::gpar(
         col = coords$colour,
         fill = alpha(coords$fill, coords$alpha),
-        lwd = coords$linewidth * .pt,
+        lwd = coords$linewidth * .bigpt,
         lty = coords$linetype,
         linejoin = linejoin,
         lineend = lineend)
@@ -166,7 +166,7 @@ GeomRecessions <- ggplot2::ggproto("GeomRecessions", ggplot2::Geom,
       gp = grid::gpar(
         col = coords$colour,
         fill = alpha(coords$top_fill, coords$top_alpha),
-        lwd = coords$linewidth * .pt,
+        lwd = coords$linewidth * .bigpt,
         lty = coords$linetype,
         linejoin = linejoin,
         lineend = lineend)

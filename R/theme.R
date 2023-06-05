@@ -14,8 +14,7 @@
 #' Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.
 #'
 #' @export
-#' @keywords internal
-.pt <- 72 / 25.4 # Alternative to ggplot::.pt === (72.27 / 25.4)
+.bigpt <- 72 / 25.4 # Alternative to ggplot::.pt === (72.27 / 25.4)
 
 
 # -------------------------------------------------------------------------
@@ -36,7 +35,7 @@
 #' Time series -> ADD
 #' }
 #'
-#' @export
+#' @export 
 # -------------------------------------------------------------------------
 
 theme_fed <- function(font_family = getOption("fedplot.font_family"),

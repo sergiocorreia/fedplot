@@ -13,4 +13,4 @@ fsr_linewidths
 \description{
 Linewidths used in the FSR.
 }
-\keyword{internal}
+\keyword{datasets}

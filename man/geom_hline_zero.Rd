@@ -4,19 +4,14 @@
 \alias{geom_hline_zero}
 \title{Convenience functions that wrap existing ggplot2 code.
 This file shouldn't contain new functionality, just code
-that can be replicated directly with ggplot2 standard functions.
-Draw horizontal line at the origin (y=0)
-Equivalent to geom_hline(yintercept = 0, linewidth = getOption("fedplot.linewidth_adj"), lineend = "round")}
+that can be replicated with longer calls to standard ggplot2 functions.
+Draw horizontal line at the origin (y=0)}
 \usage{
 geom_hline_zero(...)
 }
 \arguments{
-\item{...}{Additional arguments to pass to \link[ggplot2:geom_abline]{ggplot2::geom_hline}}
+\item{...}{Additional arguments passed to \link[ggplot2:geom_abline]{ggplot2::geom_hline}}
 }
 \description{
-Convenience functions that wrap existing ggplot2 code.
-This file shouldn't contain new functionality, just code
-that can be replicated directly with ggplot2 standard functions.
-Draw horizontal line at the origin (y=0)
-Equivalent to geom_hline(yintercept = 0, linewidth = getOption("fedplot.linewidth_adj"), lineend = "round")
+Equivalent to \code{geom_hline(yintercept = 0, linewidth = getOption("fedplot.linewidth_adj"), lineend = "round")}
 }
