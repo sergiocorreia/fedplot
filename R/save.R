@@ -8,20 +8,22 @@
 #' @param width height of the figure in points (technically; bigpoints); useful when size='custom'.
 #' @param dpi dots per inch of the output file(s). Typical values are 300 for print (the default) and rarely 72 for web image output. Note that for png images `save_plot()` multiples the dpi by 2, to compensate for the lower quality compared to vector formats (pdf, eps). Thus, the default dpi for png images is 600.
 #' @param plot ggplot2 to save. By default will save the plot last printed to screen.
+#' @param ... Other arguments passed on to the graphics device function.
 #' @export
 save_plot <- function(
-    # Standard options
-  filename, # Excluding extension
-  extension = c('pdf', 'eps', 'png', 'all'),
-  path = NULL,
-  size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'),
-  # Advanced options
-  scale = 1,
-  height = NULL,
-  width = NULL,
-  dpi = 300,
-  plot = ggplot2::last_plot()
-) {
+
+      # Standard options
+    filename, # Excluding extension
+    extension = c('pdf', 'eps', 'png', 'all'),
+    path = NULL,
+    size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'),
+    # Advanced options
+    scale = 1,
+    height = NULL,
+    width = NULL,
+    dpi = 300,
+    plot = ggplot2::last_plot(),
+    ...) {
 
   extension <- match.arg(arg=extension)
   size <- match.arg(size)
@@ -74,8 +76,13 @@ save_plot <- function(
     device <- NULL
     # Need to use Cairo as device; otherwise PDF won't embed fonts
     # https://www.andrewheiss.com/blog/2017/09/27/working-with-r-cairo-graphics-custom-fonts-and-ggplot/
-    if (ext == "pdf") device = grDevices::cairo_pdf
-    if (ext == "eps") device = grDevices::cairo_ps
+    if (ext == "pdf") device <- grDevices::cairo_pdf
+    if (ext == "eps") device <- grDevices::cairo_ps
+    #if (ext == "pdf") device <- Cairo::CairoPDF
+    #if (ext == "eps") device <- Cairo::CairoPS
+
+    #https://www.andrewheiss.com/blog/2017/09/27/working-with-r-cairo-graphics-custom-fonts-and-ggplot/
+    if (ext == "png") device <- ragg::agg_png
 
     # Save PDF figure
     ggplot2::ggsave(
@@ -87,7 +94,8 @@ save_plot <- function(
       width = total_width,
       bg = 'white',
       device = device,
-      dpi = internal_dpi)
+      dpi = internal_dpi,
+      ...)
 
     print(glue::glue("saved '{full_fn}' ({height}x{width}; size={size}; dpi={internal_dpi})"))
   }
