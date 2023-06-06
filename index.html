@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,6 +127,13 @@
 <li>Add examples for bar charts</li>
 <li>Add wrappers to the geom_hline (maybe set as an option to <code>theme_fed</code>), to the scale_* functions, and to geom_line (so it uses the group aes into its color and linewidth aes, plus the other options).</li>
 </ol>
+<div class="section level3">
+<h3 id="possible-improvements">Possible improvements<a class="anchor" aria-label="anchor" href="#possible-improvements"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Ensure that certain geometries (e.g. recession bars) are always in the background, independently on the order in which they were added. This can be achieved with e.g. <code>move_layers</code> from the <a href="https://docs.r4photobiology.info/gginnards/reference/delete_layers.html" class="external-link"><code>gginnards</code></a> package.</li>
+</ol>
+</div>
 </div>
 <div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>

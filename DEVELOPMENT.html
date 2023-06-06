@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,12 @@
 <ol style="list-style-type: decimal"><li>Run <code><a href="https://devtools.r-lib.org/" class="external-link">library(devtools)</a></code> (optional?)</li>
 <li>Edit one or more files below <code>R/</code>.</li>
 <li>
-<code>devtools::document()</code>. Required if you’ve made any changes that impact help files, NAMESPACE, or collate order. Note that <code>check()</code> won’t update NAMESPACE so we need to run this. Also, it seems that sometimes you have to manually delete the NAMESPACE file so it will get recreated without errors.</li>
+<code>devtools::document()</code>. Some important notes:
+<ul><li>Required if you’ve made any changes that impact help files, NAMESPACE, or collate order.</li>
+<li>Note that <code>check()</code> won’t update NAMESPACE so we need to run this.</li>
+<li>Also, it seems that sometimes you have to manually delete the NAMESPACE file so it will get recreated without errors.</li>
+<li><strong>Note that if you add/modify S3 methods, you need to run <code>document()</code> or the code will fail to run even after <code>load_all()</code>!!!</strong></li>
+</ul></li>
 <li><code>devtools::load_all()</code></li>
 <li>Run some examples interactively.</li>
 <li>
@@ -68,7 +73,10 @@
 <li><a href="https://stuff.mit.edu/afs/athena/software/r/current/RStudio/resources/roxygen_help.html" class="external-link uri">https://stuff.mit.edu/afs/athena/software/r/current/RStudio/resources/roxygen_help.html</a></li>
 </ul></li>
 </ul><p>See also:</p>
-<ul><li><a href="https://arrow.apache.org/docs/dev/r/articles/developers/workflow.html" class="external-link uri">https://arrow.apache.org/docs/dev/r/articles/developers/workflow.html</a></li>
+<ul><li>
+<a href="https://docs.r4photobiology.info/gginnards/reference/index.html" class="external-link">gginnards</a>: useful to debug geometries, layers, etc.</li>
+<li><a href="https://arrow.apache.org/docs/dev/r/articles/developers/workflow.html" class="external-link uri">https://arrow.apache.org/docs/dev/r/articles/developers/workflow.html</a></li>
+<li><a href="https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/" class="external-link uri">https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/</a></li>
 </ul></div>
 
 

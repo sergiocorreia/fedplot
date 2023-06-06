@@ -49,7 +49,7 @@
     <loc>https://sergiocorreia.github.io/fedplot/reference/customproto.html</loc>
   </url>
   <url>
-    <loc>https://sergiocorreia.github.io/fedplot/reference/dot-pt.html</loc>
+    <loc>https://sergiocorreia.github.io/fedplot/reference/dot-bigpt.html</loc>
   </url>
   <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/dummy_data.html</loc>
@@ -82,6 +82,9 @@
     <loc>https://sergiocorreia.github.io/fedplot/reference/geom_hline_zero.html</loc>
   </url>
   <url>
+    <loc>https://sergiocorreia.github.io/fedplot/reference/geom_line_fed.html</loc>
+  </url>
+  <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/geom_recessions.html</loc>
   </url>
   <url>
@@ -101,6 +104,9 @@
   </url>
   <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/save_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://sergiocorreia.github.io/fedplot/reference/scale_x_year.html</loc>
   </url>
   <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/theme_fed.html</loc>
