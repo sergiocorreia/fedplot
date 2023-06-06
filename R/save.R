@@ -47,16 +47,22 @@ save_plot <- function(
     filename <- file.path(path, filename)
   }
 
-  # Hack: enforce size of plot panel
-  resized_plot <- plot +
-    ggh4x::force_panelsizes(rows = unit(height, "bigpts"), cols = unit(width, "bigpts"))
-  #print(plot + ggh4x::force_panelsizes(rows = 2 * unit(height, "bigpts"), cols = 2 * unit(width, "bigpts")))
-  #print(resized_plot)
+  enforce_panel_size <- FALSE
 
-  # Hack: compute plot width to save exactly that (else the plot has too much empty space around it)
-  gt <- ggplot2::ggplotGrob(resized_plot)
-  total_height <- sum(as.numeric(grid::convertUnit(gt$heights, "in"))) # * 60
-  total_width <- sum(as.numeric(grid::convertUnit(gt$widths, "in"))) # * 40
+  if (enforce_panel_size) {
+    # Hack: enforce size of plot panel
+    plot <- plot +
+      ggh4x::force_panelsizes(rows = unit(height, "bigpts"), cols = unit(width, "bigpts"))
+
+    # Hack: compute plot width to save exactly that (else the plot has too much empty space around it)
+    gt <- ggplot2::ggplotGrob(plot)
+    total_height <- sum(as.numeric(grid::convertUnit(gt$heights, "in"))) # * 60
+    total_width <- sum(as.numeric(grid::convertUnit(gt$widths, "in"))) # * 40
+  }
+  else {
+    total_height <- grid::convertUnit(grid::unit(height, "bigpts"), "in")
+    total_width <- grid::convertUnit(grid::unit(width, "bigpts"), "in")
+  }
 
   for (ext in extension) {
     full_fn <- glue::glue("{filename}.{ext}")
@@ -75,7 +81,7 @@ save_plot <- function(
     ggplot2::ggsave(
       filename = full_fn,
       scale = scale,
-      plot = resized_plot,
+      plot = plot,
       unit = 'in',
       height = total_height,
       width = total_width,

@@ -31,7 +31,7 @@ NULL
     #   "Due to a historical error, the unit of linewidth is roughly 0.75 mm"
     #    https://community.rstudio.com/t/units-of-linewidth/162885
     # 2) Then we convert from points to mm
-    #    Note also that ggplot2:::.pt === 72.27 / 25.4
+    #    Note also that ggplot2::.pt === 72.27 / 25.4
     # BUGBUG / QUESTION: should the last division be "72" instead of "72.27"???
     fedplot.linewidth_adj = 96 / 72 * 25.4 / 72.27
 

@@ -13,4 +13,4 @@ An object of class \code{numeric} of length 1.
 \description{
 Alternative to ggplot::.pt ; using bigpoints of size 72 instead of points of size 72.27.
 }
-\keyword{datasets}
+\keyword{internal}

@@ -50,7 +50,7 @@ geom_line_fed <- function(mapping = NULL, ...) {
   # https://stackoverflow.com/a/65733829/3977107
   mapping <- if (is.null(mapping)) extra_mapping else utils::modifyList(mapping, extra_mapping)
   
-  out <- ggplot2::geom_line(mapping=mapping, na.rm = TRUE, linejoin = "mitre", lineend = "round", ...)
+  out <- ggplot2::geom_line(mapping=mapping, na.rm = TRUE, linejoin = "round", lineend = "round", ...)
   class(out) <- c("geom_line_fed", class(out))
   out
 }

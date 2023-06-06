@@ -35,8 +35,7 @@ ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
 
 annotate_top_tick <- function() {
   tick_length <- grid::unit(12, "bigpts")   # "top tick marks: 12 points"
-  # Note that 72.27/25.4 is equivalent to dividing by ggplot2::.pt
-  tick_width <- grid::unit(0.5 * getOption("fedplot.linewidth_adj") * 72.27 / 25.4, "bigpts")  # "line stroke size: 0.5 point for all axis"
+  tick_width <- grid::unit(0.5 * getOption("fedplot.linewidth_adj") * ggplot2::.pt, "bigpts")  # "line stroke size: 0.5 point for all axis"
   zero <- grid::unit(0, "npc")
   one <- grid::unit(1, "npc")
 
@@ -143,7 +142,7 @@ annotate_last_date <- function(# Common options
           family = font_family,
           color = color,
           hjust = 1,
-          size = font_size / .bigpt,
+          size = font_size / ggplot2::.pt,
           # Same as geom-text-repel.R:
           na.rm = na.rm,
           box.padding = box.padding, # ggrepel:::to_unit(box.padding),
@@ -182,7 +181,7 @@ annotate_last_date <- function(# Common options
           family = font_family,
           color = color,
           hjust = 1,
-          size = font_size / .bigpt,
+          size = font_size / ggplot2::.pt,
           na.rm = na.rm,
           ...
         ),
@@ -205,7 +204,9 @@ setup_data_last_date = function(data, params) {
     dplyr::filter(x == max(x)) |>
     dplyr::mutate(label = date2label(x, frequency)) |>
     dplyr::mutate(label = dplyr::case_when(
+      label == "May." ~ "May",
       label == "Jun." ~ "June",
+      label == "Jul." ~ "July",
       label == "Sep." ~ "Sept.")
     )
 }
@@ -283,7 +284,7 @@ annotate_frequency <- function(label = "",
                                font_size = getOption("fedplot.font_size") * 7L / 8L) {
   gp <- grid::gpar(fontfamily = font_family, fontsize = font_size)
   x = grid::unit(12, "bigpts")
-  y = grid::unit(1, "npc") - grid::unit(3, "bigpts")
+  y = grid::unit(1, "npc") - grid::unit(3 + 0.4, "bigpts")
   text1_grob <- grid::textGrob(label, x=x, y=y, hjust=0, vjust=1, gp = gp)
 
   out <- ggplot2::layer(

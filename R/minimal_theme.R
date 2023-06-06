@@ -57,7 +57,7 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     plot.title = ggplot2::element_text(
       hjust = 1,
       vjust = 1,
-      margin = ggplot2::margin(t = 0, b = grid::unit(3, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)
+      margin = ggplot2::margin(t = 0, b = grid::unit(3 - 1.2, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)
 
     # X axis title (indicating frequency: monthly, quarterly, etc.)
     axis.title.x = ggplot2::element_blank(),
@@ -67,21 +67,21 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     plot.caption = ggtext::element_textbox_simple(hjust = 0, margin = ggplot2::margin(t=6+1, r=0, b=3, l=0), lineheight=1.05),
 
     # Axis lines
-    axis.line = ggplot2::element_line(lineend="round"),
+    axis.line = ggplot2::element_line(lineend="square"),
 
     # Axis labels
     axis.text = ggplot2::element_text(size = medium_font_size),
     axis.text.y.left = ggplot2::element_blank(),
     axis.text.y.right = ggplot2::element_text(hjust = 1, margin = ggplot2::margin(l=6)),
     # Hack: if we don't do 6+6=12 then ggh4x leaves no margin for the years (b/c of the ticks)
-    axis.text.x.bottom = ggplot2::element_text(hjust = 0.5, margin = ggplot2::margin(t=6+6), debug=F),
+    axis.text.x.bottom = ggplot2::element_text(hjust = 0.5, margin = ggplot2::margin(t=6+6+0.375), debug=F),
     
     # Axis ticks
     axis.ticks = ggplot2::element_line(linewidth = 0.5 * getOption("fedplot.linewidth_adj"), lineend="round"),
     # Hack: we want to set it to zero but can't without also setting minor ticks to zero; so we set them to .06pt and then the minor ticks to 100*.06=6pt
     axis.ticks.length = grid::unit(-6, units='bigpts'),
-    axis.ticks.length.x = grid::unit(-.06, units='bigpts'),
-    ggh4x.axis.ticks.length.minor = ggplot2::rel(100), # ggh4x axis tricks to fit year labels
+    axis.ticks.length.x = grid::unit(-.0006, units='bigpts'),
+    ggh4x.axis.ticks.length.minor = ggplot2::rel(10000), # ggh4x axis tricks to fit year labels
 
     # Legend
     legend.title = ggplot2::element_blank(),
@@ -97,9 +97,11 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=2)),
 
     # Entire plot
-    #plot.margin = ggplot2::margin(1, 1, 1, 1), # margin=1 works well on Windows but not on Fed Linux
+
+    plot.margin = ggplot2::margin(.3, 0, 0, 0), # margin=1 works well on Windows but not on Fed Linux
     #plot.margin = ggplot2::margin(4, 4, 4, 4),
-    plot.margin = ggplot2::margin(6, 6, 6, 6),
+    #plot.margin = ggplot2::margin(6, 6, 6, 6),
+    #plot.margin = ggplot2::margin(0, 0, 0, 0),
 
     #plot.background = ggplot2::element_rect(color='red', fill=NA),
     panel.background = ggplot2::element_blank(), #This sets the panel background as blank, removing the standard grey ggplot background colour from the plot

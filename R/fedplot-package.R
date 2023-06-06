@@ -22,7 +22,7 @@
 #' @importFrom dplyr select distinct filter mutate case_when
 #' @importFrom ggh4x guide_axis_minor
 #' @importFrom ggplot2 aes coord_cartesian discrete_scale element_blank element_rect element_text Geom geom_blank geom_line geom_text ggplotGrob ggproto ggsave guides position_nudge theme theme_classic xlab ylab
-#' @importFrom ggplot2 layer StatIdentity PositionIdentity GeomCustomAnn geom_hline last_plot rel
+#' @importFrom ggplot2 layer StatIdentity PositionIdentity GeomCustomAnn geom_hline last_plot rel .pt
 #' @importFrom ggplot2 '%+replace%'
 #' @importFrom glue glue
 #' @importFrom ggrepel GeomTextRepel
