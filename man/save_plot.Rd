@@ -13,7 +13,8 @@ save_plot(
   height = NULL,
   width = NULL,
   dpi = 300,
-  plot = ggplot2::last_plot()
+  plot = ggplot2::last_plot(),
+  ...
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ save_plot(
 \item{dpi}{dots per inch of the output file(s). Typical values are 300 for print (the default) and rarely 72 for web image output. Note that for png images \code{save_plot()} multiples the dpi by 2, to compensate for the lower quality compared to vector formats (pdf, eps). Thus, the default dpi for png images is 600.}
 
 \item{plot}{ggplot2 to save. By default will save the plot last printed to screen.}
+
+\item{...}{Other arguments passed on to the graphics device function.}
 }
 \description{
 Export figure

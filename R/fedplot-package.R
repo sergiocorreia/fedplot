@@ -33,6 +33,7 @@
 #' @importFrom rlang list2
 #' @importFrom systemfonts system_fonts
 #' @importFrom tibble tibble
+#' @importFrom ragg agg_png
 ## usethis namespace: end
 NULL
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrappers.R
 \name{scale_x_year}
 \alias{scale_x_year}
-\title{Position annual scales for date data (INCOMPLETE)}
+\title{Position annual scales for date data (INCOMPLETE!)}
 \usage{
 scale_x_year(
   from = ggplot2::waiver(),

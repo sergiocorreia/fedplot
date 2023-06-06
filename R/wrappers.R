@@ -73,7 +73,7 @@ ggplot_add.geom_line_fed <- function(object, plot, object_name) {
 
 
 # -------------------------------------------------------------------------
-#' Position annual scales for date data (INCOMPLETE)
+#' Position annual scales for date data (INCOMPLETE!)
 #' 
 #' `scale_x_year` is a wrapper around `ggplot2::scale_x_date()`
 #' that automates some of its boilerplate.
@@ -130,7 +130,7 @@ scale_x_year <- function(from = ggplot2::waiver(),
   #                      date_labels = "%Y",
   #                      expand = expansion(mult = expand))
 
-  out <- ggplot2::scale_x_date(expand = expansion(mult = expand))  # date_labels = "%Y", 
+  out <- ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))  # date_labels = "%Y", 
   class(out) <- c("scale_x_year", class(out))
   out
 
@@ -143,7 +143,8 @@ scale_x_year <- function(from = ggplot2::waiver(),
 
 #' @export
 ggplot_add.scale_x_year <- function(object, plot, object_name) {
-  var <- quo_name(plot$mapping$x)
+  #var <- quo_name(plot$mapping$x)
+  var <- plot$mapping$x
   print(range(plot$data[[var]] ))
 
   print("<<<")
