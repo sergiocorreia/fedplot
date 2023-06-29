@@ -71,6 +71,7 @@ geom_recessions <- function(fill = "#BDCFDE",
   fn <- fs::path_package("extdata", "recessions.tsv", package = "fedplot")
   recess_table <- readr::read_tsv(fn, col_types = "DD")
   # Adjust shading depending on method
+  peak <- trough <- NULL # Silence notes in package check
   if (method == "midpoint") {
     recess_table <- recess_table |>
       mutate(trough = lubridate::add_with_rollback(trough, months(1)) )
