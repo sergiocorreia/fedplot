@@ -37,11 +37,22 @@ update_recessions <- function() {
 #' @section Inspiration and alternative implementations: 
 #' This function is heavily inspired on `geom_recessions` from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
 #'
+#' @section Alternative methods used to show recession data:
+#'  As discussed in the St. Louis Fed \href{https://fred.stlouisfed.org/data/USREC.txt}{FRED} website (\href{https://fred.stlouisfed.org/data/USREC.txt}{HTML version}), there are multiple interpretations or methods for shading recessions.
+#' First, the "midpoint" method shades both the peak and trough months. It is used by the Fed Board and St. Louis Fed for their publications.
+#' Second, the "trough" method shades the trough month but not the peak month. It is used in FRED graphs.
+#' Lastly, the "peak" method shades the peak month but not the trough month.
+#'
 #' @param fill The color of the main bar; defaults to a light blue tint.
 #' @param alpha The alpha transparency of the main bar; defaults to 1.0 (totally opaque).
 #' @param draw_top_bar Whether to draw the top bar or not.
 #' @param top_fill The color of the top bar; defaults to a dark blue tint.
 #' @param top_alpha The alpha transparency of the top blue bar; defaults to 1.0 (totally opaque).
+#' @param method The method or interpretation used to show the recession data. Defaults to the midpoint method.
+  # 
+  # https://fred.stlouisfed.org/data/USREC.txt
+
+
 #'
 #'@export
 # -------------------------------------------------------------------------
@@ -50,32 +61,48 @@ geom_recessions <- function(fill = "#BDCFDE",
                             alpha = 1.0,
                             draw_top_bar = TRUE,
                             top_fill = "#236192",
-                            top_alpha = 1.0
+                            top_alpha = 1.0,
+                            method = c("midpoint", "trough", "peak")
                             )
 {
-    # build recessions table for use in function, but hide it in a list
-    # because of ggplot's requirement that parameters be of length 1
-    fn <- fs::path_package("extdata", "recessions.tsv", package = "fedplot")
-    recess_table <- list(readr::read_tsv(fn, col_types = "DD"))
+  method <- match.arg(method)
 
-    # return a series of gg objects to ggplot
-    list(
-      ggplot2::layer(
-        geom = GeomRecessions,
-        mapping = NULL,
-        data = NULL,
-        stat = "identity",
-        position = "identity",
-        show.legend = FALSE,
-        inherit.aes = TRUE,
-        params = list(recess_table = recess_table,
-                      fill = fill,
-                      alpha = alpha,
-                      draw_top_bar = draw_top_bar,
-                      top_fill = top_fill,
-                      top_alpha = top_alpha)
-      )
+  # build recessions table for use in function
+  fn <- fs::path_package("extdata", "recessions.tsv", package = "fedplot")
+  recess_table <- readr::read_tsv(fn, col_types = "DD")
+  # Adjust shading depending on method
+  if (method == "midpoint") {
+    recess_table <- recess_table |>
+      mutate(trough = lubridate::add_with_rollback(trough, months(1)) )
+  } else if (method == "trough") {
+    recess_table <- recess_table |>
+      mutate(peak = lubridate::add_with_rollback(peak, months(1)) ) |>
+      mutate(trough = lubridate::add_with_rollback(trough, months(1)) )
+  } else {
+    # No need to do anything for peak method
+  }
+  # hide data.frame in a list because of ggplot's requirement that parameters be of length 1
+  recess_table <- list(recess_table)
+
+
+  # return a series of gg objects to ggplot
+  list(
+    ggplot2::layer(
+      geom = GeomRecessions,
+      mapping = NULL,
+      data = NULL,
+      stat = "identity",
+      position = "identity",
+      show.legend = FALSE,
+      inherit.aes = TRUE,
+      params = list(recess_table = recess_table,
+                    fill = fill,
+                    alpha = alpha,
+                    draw_top_bar = draw_top_bar,
+                    top_fill = top_fill,
+                    top_alpha = top_alpha)
     )
+  )
 }
 
 #' Custom ggproto classes
