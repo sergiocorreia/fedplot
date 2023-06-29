@@ -9,7 +9,8 @@ geom_recessions(
   alpha = 1,
   draw_top_bar = TRUE,
   top_fill = "#236192",
-  top_alpha = 1
+  top_alpha = 1,
+  method = c("midpoint", "trough", "peak")
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ geom_recessions(
 \item{top_fill}{The color of the top bar; defaults to a dark blue tint.}
 
 \item{top_alpha}{The alpha transparency of the top blue bar; defaults to 1.0 (totally opaque).}
+
+\item{method}{The method or interpretation used to show the recession data. Defaults to the midpoint method.}
 }
 \description{
 \code{geom_recessions} adds shaded recession bars to a time-series ggplot2 chart
@@ -45,5 +48,13 @@ objects, for the main blue bar and the top dark blue bar.
 \section{Inspiration and alternative implementations}{
 
 This function is heavily inspired on \code{geom_recessions} from the \href{https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html}{CMAPPLOT} package.
+}
+
+\section{Alternative methods used to show recession data}{
+
+As discussed in the St. Louis Fed \href{https://fred.stlouisfed.org/data/USREC.txt}{FRED} website (\href{https://fred.stlouisfed.org/data/USREC.txt}{HTML version}), there are multiple interpretations or methods for shading recessions.
+First, the "midpoint" method shades both the peak and trough months. It is used by the Fed Board and St. Louis Fed for their publications.
+Second, the "trough" method shades the trough month but not the peak month. It is used in FRED graphs.
+Lastly, the "peak" method shades the peak month but not the trough month.
 }
 
