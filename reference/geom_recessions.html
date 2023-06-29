@@ -71,7 +71,8 @@ the topmost part of the chart.</p>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  draw_top_bar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  top_fill <span class="op">=</span> <span class="st">"#236192"</span>,</span>
-<span>  top_alpha <span class="op">=</span> <span class="fl">1</span></span>
+<span>  top_alpha <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"midpoint"</span>, <span class="st">"trough"</span>, <span class="st">"peak"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -96,6 +97,10 @@ the topmost part of the chart.</p>
 <dt>top_alpha</dt>
 <dd><p>The alpha transparency of the top blue bar; defaults to 1.0 (totally opaque).</p></dd>
 
+
+<dt>method</dt>
+<dd><p>The method or interpretation used to show the recession data. Defaults to the midpoint method.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="implementation-details">Implementation details<a class="anchor" aria-label="anchor" href="#implementation-details"></a></h2>
@@ -113,6 +118,15 @@ objects, for the main blue bar and the top dark blue bar.</p>
     
 
 <p>This function is heavily inspired on <code>geom_recessions</code> from the <a href="https://cmap-repos.github.io/cmapplot/reference/geom_recessions.html" class="external-link">CMAPPLOT</a> package.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="alternative-methods-used-to-show-recession-data">Alternative methods used to show recession data<a class="anchor" aria-label="anchor" href="#alternative-methods-used-to-show-recession-data"></a></h2>
+    
+
+<p>As discussed in the St. Louis Fed <a href="https://fred.stlouisfed.org/data/USREC.txt" class="external-link">FRED</a> website (<a href="https://fred.stlouisfed.org/data/USREC.txt" class="external-link">HTML version</a>), there are multiple interpretations or methods for shading recessions.
+First, the "midpoint" method shades both the peak and trough months. It is used by the Fed Board and St. Louis Fed for their publications.
+Second, the "trough" method shades the trough month but not the peak month. It is used in FRED graphs.
+Lastly, the "peak" method shades the peak month but not the trough month.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
