@@ -6,6 +6,11 @@
 # Change data elements overloading ggplot_add -----------------------------
 # See: https://yutani.rbind.io/post/2017-11-07-ggplot-add/
 
+#' Move y-axis title to the top-right of the chart.
+#' 
+#' This function reuses the chart subtitle to move the y-axis title there.
+#' Therefore, using it implies that users can't add subtitles to charts.
+#' 
 #' @export
 move_y_axis_title <- function() {
   out <- ggplot2::geom_blank()
@@ -17,7 +22,7 @@ move_y_axis_title <- function() {
 ggplot_add.move_y_axis_title <- function(object, plot, object_name) {
   # Swap title and y-axis title
   #plot$labels$xyz <- "foo"
-  plot$labels$title <- plot$labels$y
+  plot$labels$subtitle <- plot$labels$y
   #plot$labels$y <- NULL # NULL
   plot
 }

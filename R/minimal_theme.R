@@ -53,8 +53,8 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
 
     # See: https://ggplot2.tidyverse.org/reference/theme.html
       
-    # Title; which is actually the y-axis title (indicating the unit)
-    plot.title = ggplot2::element_text(
+    # Subtitle; which is actually the y-axis title (indicating the unit)
+    plot.subtitle = ggplot2::element_text(
       hjust = 1,
       vjust = 1,
       margin = ggplot2::margin(t = 0, b = grid::unit(3 - 1.2, "bigpts"))), # had to add top margin b/c of ggtext (not anymore?)

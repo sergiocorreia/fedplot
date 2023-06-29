@@ -2,10 +2,12 @@
 % Please edit documentation in R/extensions.R
 \name{move_y_axis_title}
 \alias{move_y_axis_title}
-\title{Complex extensions that involve hacks to ggplot internals}
+\title{Complex extensions that involve hacks to ggplot internals
+Move y-axis title to the top-right of the chart.}
 \usage{
 move_y_axis_title()
 }
 \description{
-Complex extensions that involve hacks to ggplot internals
+This function reuses the chart subtitle to move the y-axis title there.
+Therefore, using it implies that users can't add subtitles to charts.
 }
