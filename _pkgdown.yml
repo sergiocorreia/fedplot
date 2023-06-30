@@ -5,7 +5,7 @@ home:
 
 navbar:
   structure:
-    left:  [reference]
+    left:  [reference, articles, tutorials]
     #left:  [intro, reference, articles, tutorials, news]
     right: [search, github]
 

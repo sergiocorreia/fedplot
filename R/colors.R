@@ -158,3 +158,33 @@ fed_color_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = F
   }
 
 }
+
+
+fed_fill_pal <- function(palette = "fsr_primary", use_ramp = FALSE, reverse = FALSE, ...) {
+
+  # If palette is a string, select the corresponding element.
+  # Otherwise, assume it already exists (e.g. from another package)
+  if (is.character(palette) & length(palette) == 1) {
+    pal <- fed_color_palettes[[palette]]
+  }
+  else {
+    pal <- palette
+  }
+
+  if (reverse) pal <- rev(pal)
+  
+  if (use_ramp) {
+    # Supports many colors (b/c int interpolates) but doesn't use the exact colors we need
+    grDevices::colorRampPalette(pal, ...)
+  }
+  else {
+    # Just use the exact colors we need but up to the palette size (afterwards, we get an error)
+    function(n) {
+      if (length(pal) < n) {
+        stop(glue::glue("Color palette only has {length(pal)} values but {n} were requested."))
+      }
+      unname(pal[1:n])
+    }
+  }
+
+}

@@ -24,7 +24,9 @@
 #' @param font_family base font family
 #' @param font_size base font family and size
 #' @param legend_position where to place the legend; default is `c(.9, .1)`
-#' @param color_palette color palette to use
+#' @param color_palette color palette to use (either a string with the name or a vector)
+#' @param fill_palette fill palette to use (either a string with the name or a vector)
+#' @param linewidth_palette linewidth palette to use (either a string with the name or a vector)
 #' @param frequency string indicating the date frequency; autodetected by default
 #'
 #' @examples \dontrun{
@@ -42,14 +44,16 @@
 theme_fed <- function(font_family = getOption("fedplot.font_family"),
                       font_size = getOption("fedplot.font_size"),
                       legend_position = c(.9, .1),
-                      color_palette = "main",
+                      color_palette = "fsr_primary",
+                      fill_palette = "fsr_primary",
+                      linewidth_palette = "fsr_linewidths",
                       frequency = "default") {
   list(
     
     # Set palettes
-    ggplot2::discrete_scale("color", "fed_color_scale", fed_color_pal()),
-    ggplot2::discrete_scale("fill", "fed_fill_scale", fed_color_pal()),
-    ggplot2::discrete_scale("linewidth", "fed_linewidth_scale", fed_linewidth_pal()),
+    ggplot2::discrete_scale("color", "fed_color_scale", fed_color_pal(color_palette)),
+    ggplot2::discrete_scale("fill", "fed_fill_scale", fed_fill_pal(fill_palette)),
+    ggplot2::discrete_scale("linewidth", "fed_linewidth_scale", fed_linewidth_pal(linewidth_palette)),
 
     # Used to add secondary ticks
     ggplot2::guides(x = ggh4x::guide_axis_minor()),

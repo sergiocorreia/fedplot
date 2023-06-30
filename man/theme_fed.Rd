@@ -8,7 +8,9 @@ theme_fed(
   font_family = getOption("fedplot.font_family"),
   font_size = getOption("fedplot.font_size"),
   legend_position = c(0.9, 0.1),
-  color_palette = "main",
+  color_palette = "fsr_primary",
+  fill_palette = "fsr_primary",
+  linewidth_palette = "fsr_linewidths",
   frequency = "default"
 )
 }
@@ -19,7 +21,11 @@ theme_fed(
 
 \item{legend_position}{where to place the legend; default is \code{c(.9, .1)}}
 
-\item{color_palette}{color palette to use}
+\item{color_palette}{color palette to use (either a string with the name or a vector)}
+
+\item{fill_palette}{fill palette to use (either a string with the name or a vector)}
+
+\item{linewidth_palette}{linewidth palette to use (either a string with the name or a vector)}
 
 \item{frequency}{string indicating the date frequency; autodetected by default}
 }
