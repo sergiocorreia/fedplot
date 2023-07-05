@@ -15,7 +15,7 @@ authors:
 
 template:
   bootstrap: 5
-  assets: pkgdown/googled8148d5bf9552f72.html
+  assets: static
 
 # https://pkgdown.r-lib.org/reference/build_reference.html
 reference:
