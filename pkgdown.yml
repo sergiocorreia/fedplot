@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   areaplots: areaplots.html
   barplots: barplots.html
-last_built: 2023-07-01T05:07Z
+last_built: 2023-07-05T17:48Z
 urls:
   reference: https://sergiocorreia.github.io/fedplot/reference
   article: https://sergiocorreia.github.io/fedplot/articles
