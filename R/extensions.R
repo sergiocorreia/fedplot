@@ -202,14 +202,14 @@ annotate_last_date <- function(# Common options
 # @export
 setup_data_last_date = function(data, params) {
   # Silence notes in package check
-  x <- y <- NULL
+  label <- x <- y <- NULL
 
   frequency <- get_frequency_internal(data)
 
   data |>
     dplyr::filter(!is.na(y)) |>
     dplyr::filter(x == max(x)) |>
-    dplyr::filter(row_number() == 1) |> # This resolves ties when there are multiple bars/series ending on max. date
+    dplyr::filter(dplyr::row_number() == 1) |> # This resolves ties when there are multiple bars/series ending on max. date
     dplyr::mutate(label = date2label(x, frequency)) |>
     dplyr::mutate(label = dplyr::case_when(
       label == "May." ~ "May",
@@ -379,7 +379,7 @@ draw_key_square <- function(data, params, size) {
     height = unit(1, "snpc") - unit(lwd, "mm"),
     gp = gpar(
       col = data$colour %||% NA,
-      fill = alpha(data$fill %||% "grey20", data$alpha),
+      fill = scales::alpha(data$fill %||% "grey20", data$alpha),
       lty = data$linetype %||% 1,
       lwd = lwd * .pt,
       linejoin = params$linejoin %||% "mitre",
