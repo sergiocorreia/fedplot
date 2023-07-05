@@ -52,7 +52,7 @@ linewidth <- getOption("fedplot.linewidth_adj") * 0.25
 
 FSR_4_1 |>
   ggplot(aes(x = date, y = value, fill=type)) +
-  geom_area(color="black", linewidth=linewidth) +
+  geom_area(color="black", linewidth=linewidth, key_glyph=draw_key_square) +
   labs(y="Billions of dollars") +
   geom_hline_zero() +
   scale_x_date(minor_breaks=seq(from=as.Date("2002-01-01"), to=as.Date("2023-01-01"), by="1 years"),

@@ -10,6 +10,7 @@ annotate_last_date(
   color = "black",
   nudge_x = 0,
   nudge_y = 0,
+  hjust = 0.5,
   repel = FALSE,
   box.padding = 0.25,
   point.padding = 1e-06,

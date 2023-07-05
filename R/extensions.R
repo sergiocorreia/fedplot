@@ -91,6 +91,7 @@ annotate_top_tick <- function() {
 #' @param color Color of the text. Defaults to `black`.
 #' @param nudge_x Manually nudge the x-axis of the text. Alternative to the `repel` option.
 #' @param nudge_y Manually nudge the y-axis of the text. Alternative to the `repel` option.
+#  @param hjust Horizontal justification; range is 0 to 1; default is 0.5 (centered).
 #' @param repel If set to `TRUE`, will try to reposition the text label to avoid overlapping it with other elements of the plot (such as the lines). It relies on the [ggrepel::geom_text_repel()] function of the [ggrepel] package.
 #' @param text_aes Named list, additional aesthetics to send to the geometry.
 #' @inheritParams ggrepel::geom_text_repel
@@ -104,6 +105,7 @@ annotate_last_date <- function(# Common options
                                # Manually move location
                                nudge_x = 0,
                                nudge_y = 0,
+                               hjust = 0.5,
                                # Automatically move location using ggrepel
                                repel = FALSE,
                                box.padding = 0.25,
@@ -146,7 +148,7 @@ annotate_last_date <- function(# Common options
         rlang::list2(
           family = font_family,
           color = color,
-          hjust = 1,
+          hjust = hjust,
           size = font_size / ggplot2::.pt,
           # Same as geom-text-repel.R:
           na.rm = na.rm,
@@ -185,7 +187,7 @@ annotate_last_date <- function(# Common options
         rlang::list2(
           family = font_family,
           color = color,
-          hjust = 1,
+          hjust = hjust,
           size = font_size / ggplot2::.pt,
           na.rm = na.rm,
           ...
@@ -207,12 +209,14 @@ setup_data_last_date = function(data, params) {
   data |>
     dplyr::filter(!is.na(y)) |>
     dplyr::filter(x == max(x)) |>
+    dplyr::filter(row_number() == 1) |> # This resolves ties when there are multiple bars/series ending on max. date
     dplyr::mutate(label = date2label(x, frequency)) |>
     dplyr::mutate(label = dplyr::case_when(
       label == "May." ~ "May",
       label == "Jun." ~ "June",
       label == "Jul." ~ "July",
-      label == "Sep." ~ "Sept.")
+      label == "Sep." ~ "Sept.",
+      .default = label)
     )
 }
 
@@ -260,6 +264,8 @@ get_frequency_internal <- function(data) {
 date2label <- function(x, frequency) {
   if (frequency == "Monthly") {
     strftime(structure(x, class="Date"), "%b.")
+  } else if (frequency == "Quarterly") {
+    paste0("Q", lubridate::quarter(structure(x, class="Date")))
   }
   else {
     structure(x, class="Date") 
@@ -338,4 +344,45 @@ get_frequency <- function(plot) {
   } else {
     "Daily"
   }
+}
+
+
+
+
+
+
+# -------------------------------------------------------------------------
+#' Square legends
+#'
+#' By \href{https://github.com/tidyverse/ggplot2/issues/3669}{default}, legends of bar plots and area plots use the `draw_key_polygon` function
+#' to draw a rectangle as high as the text height. `fedplot` instead uses square legends, achieved by passing the argument `key_glyph=draw_key_square`
+#' to the required geometries (`geom_col`, etc.).
+#' See this \href{https://stackoverflow.com/questions/65812949/set-standard-legend-key-size-with-long-label-names-ggplot}{stack overflow thread} for more details,
+#' and \href{https://www.emilhvitfeldt.com/post/changing-glyph-in-ggplot2/}{this page} for examples of other legend key functions.
+
+
+#' @export
+#' @rdname draw_key
+# -------------------------------------------------------------------------
+draw_key_square <- function(data, params, size) {
+  if (is.null(data$size)) {
+    data$size <- 0.5
+  }
+
+  # BUGBUG / TODO: get rid of this hack
+  data$size <- getOption("fedplot.linewidth_adj") * 0.25
+
+  lwd <- min(data$size, min(size) / 4)
+
+  grid::rectGrob(
+    width = unit(1, "snpc") - unit(lwd, "mm"),
+    height = unit(1, "snpc") - unit(lwd, "mm"),
+    gp = gpar(
+      col = data$colour %||% NA,
+      fill = alpha(data$fill %||% "grey20", data$alpha),
+      lty = data$linetype %||% 1,
+      lwd = lwd * .pt,
+      linejoin = params$linejoin %||% "mitre",
+      lineend = params$lineend %||% "butt"
+  ))
 }

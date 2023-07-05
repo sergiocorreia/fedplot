@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 ## Example barplot
 
 
-First, we load `ggplot2`, `fedplot` (which contains the sample dataset `FSR_2_4`), and `scales`.
+First, we load the required packages(`ggplot2` and `fedplot`, plus `dplyr` and `scales`). Note that the sample dataset `FSR_2_4` ), and `scales`.
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -28,6 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r, include= TRUE, echo = TRUE}
 library(ggplot2)
+library(dplyr, warn.conflict=FALSE)
 library(fedplot)
 library(scales)
 
@@ -38,9 +39,15 @@ head(FSR_2_4)
 We can construct the barplot using standard `ggplot2` functions:
 
 ```{r, include = TRUE, echo = TRUE}
-caption = "Source: Mergent, Fixed Income Securities Database; PitchBook Data, Leveraged Commentary & Data."
+# Caption disabled for FSR; enabled otherwise through labs()
+caption <- "Source: Mergent, Fixed Income Securities Database; PitchBook Data, Leveraged Commentary & Data."
+
+# If we don't want the default alphabetical order, we can do use factor() and a) use relevel() afterwards or specify the levels option.
+levels <- c("Institutional leveraged loans", "High-yield and unrated bonds")
+
 FSR_2_4 |>
-  ggplot(aes(x = date, y = value, fill=risky_debt_type)) +
+  dplyr::mutate(type = factor(risky_debt_type, levels=levels)) |>
+  ggplot(aes(x = date, y = value, fill=type)) +
   geom_col() +
   labs(y="Billions of dollars") # , caption=caption)
 ```
@@ -50,10 +57,12 @@ Now we customize it:
 
 ```{r, include = TRUE, echo = TRUE}
 linewidth <- getOption("fedplot.linewidth_adj") * 0.25
+levels <- c("Institutional leveraged loans", "High-yield and unrated bonds")
 
 FSR_2_4 |>
-  ggplot(aes(x = date, y = value, fill=risky_debt_type)) +
-  geom_col(color="black", linewidth=linewidth, width=60) + # Width is in days
+  dplyr::mutate(type = factor(risky_debt_type, levels=levels)) |>
+  ggplot(aes(x = date, y = value, fill=type)) +
+  geom_col(color="black", linewidth=linewidth, width=60, key_glyph=draw_key_square) + # Width is in days
   labs(y="Billions of dollars") +
   geom_hline_zero() +
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
@@ -65,9 +74,9 @@ FSR_2_4 |>
                    limits = c(-60, 120),
                    expand = expansion(mult=0),
                    labels = scales::label_number(style_negative = "minus")) +
-  #annotate_last_date() + # nudge_y = -3, nudge_x = 300) +
+  annotate_last_date(nudge_y = 15) +
   theme_fed(legend_position = c(.45, .7),
-            fill_palette=c("#DDCBA4", "#236192")) # + theme(legend.key.height = grid::unit(0.75, 'bigpts'))
+            fill_palette=c("#236192", "#DDCBA4")) # + theme(legend.key.height = grid::unit(0.75, 'bigpts'))
 ```
 
 Lastly, we want to export the chart so it matches the required dimensions and other image characteristics:

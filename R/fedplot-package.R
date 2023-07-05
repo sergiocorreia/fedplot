@@ -30,7 +30,7 @@
 #' @importFrom grid unit segmentsGrob rectGrob gpar gTree gList convertUnit grobName
 #' @importFrom here here
 #' @importFrom lubridate round_date add_with_rollback
-#' @importFrom rlang list2
+#' @importFrom rlang list2 '%||%'
 #' @importFrom systemfonts system_fonts
 #' @importFrom tibble tibble
 #' @importFrom ragg agg_png

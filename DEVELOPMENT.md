@@ -2,6 +2,7 @@
 
 Follow [these](https://r-pkgs.org/Code.html#constant-health-checks) steps:
 
+1. Remove the package if it's already installed: `remove.packages("fedplot")` (optional?)
 1. Run `library(devtools)` (optional?)
 1. Edit one or more files below `R/`.
 1. `devtools::document()`. Some important notes:
