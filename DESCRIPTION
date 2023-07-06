@@ -30,6 +30,7 @@ Imports:
     systemfonts (>= 1.0.4),
     tibble,
 Suggests: 
+    forcats,
     jsonlite,
     knitr,
     rmarkdown
