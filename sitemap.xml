@@ -22,6 +22,9 @@
     <loc>https://sergiocorreia.github.io/fedplot/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://sergiocorreia.github.io/fedplot/articles/lineplots.html</loc>
+  </url>
+  <url>
     <loc>https://sergiocorreia.github.io/fedplot/authors.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/dot-bigpt.html</loc>
+  </url>
+  <url>
+    <loc>https://sergiocorreia.github.io/fedplot/reference/draw_key_square.html</loc>
   </url>
   <url>
     <loc>https://sergiocorreia.github.io/fedplot/reference/dummy_data.html</loc>

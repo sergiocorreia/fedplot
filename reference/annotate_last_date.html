@@ -14,7 +14,7 @@ variable and then computing for these rows the maximum of the x-axis variable.">
     
     <a class="navbar-brand me-2" href="../index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,7 @@ variable and then computing for these rows the maximum of the x-axis variable.">
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/areaplots.html">How to create area plots</a>
     <a class="dropdown-item" href="../articles/barplots.html">How to create barplots</a>
+    <a class="dropdown-item" href="../articles/lineplots.html">How to create line plots</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -67,6 +68,7 @@ variable and then computing for these rows the maximum of the x-axis variable.</
 <span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  nudge_x <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  nudge_y <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  repel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  box.padding <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>  point.padding <span class="op">=</span> <span class="fl">1e-06</span>,</span>
@@ -114,6 +116,10 @@ variable and then computing for these rows the maximum of the x-axis variable.</
 
 <dt>nudge_y</dt>
 <dd><p>Manually nudge the y-axis of the text. Alternative to the <code>repel</code> option.</p></dd>
+
+
+<dt>hjust</dt>
+<dd><p>Horizontal justification; range is 0 to 1; default is 0.5 (centered).</p></dd>
 
 
 <dt>repel</dt>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/areaplots.html">How to create area plots</a>
     <a class="dropdown-item" href="../articles/barplots.html">How to create barplots</a>
+    <a class="dropdown-item" href="../articles/lineplots.html">How to create line plots</a>
   </div>
 </li>
       </ul>
@@ -95,14 +96,16 @@
 contains the sample dataset <code>FSR_4_1</code>), and
 <code>scales</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">#devtools::load_all()</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sergiocorreia.github.io/fedplot">fedplot</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in load_fed_font(): Cannot load font 'ITCFranklinGothic LT BookCn'; not</span></span>
 <span><span class="co">#&gt; installed</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://forcats.tidyverse.org/" class="external-link">forcats</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"fedplot"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] '0.6.0'</span></span>
+<span><span class="co">#&gt; [1] '0.8.0'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">FSR_4_1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
 <span><span class="co">#&gt;   date       type                        value</span></span>
@@ -124,10 +127,24 @@ functions:</p>
 <p>Now we customize it:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linewidth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"fedplot.linewidth_adj"</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.25</span></span>
+<span><span class="va">font_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"fedplot.font_size"</span><span class="op">)</span> <span class="op">*</span> <span class="fl">7L</span> <span class="op">/</span> <span class="fl">8L</span> <span class="op">/</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/graphical-units.html" class="external-link">.pt</a></span>, <span class="st">"bigpts"</span><span class="op">)</span></span>
+<span><span class="va">font_family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"fedplot.font_family"</span><span class="op">)</span></span>
+<span><span class="va">maxdate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">FSR_4_1</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">FSR_4_1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    type <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Other"</span> <span class="op">~</span> <span class="st">"1. Other"</span>,</span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Securities lending"</span> <span class="op">~</span> <span class="st">"2. Securities lending"</span>,</span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Commercial paper"</span> <span class="op">~</span> <span class="st">"3. Commercial paper"</span>,</span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Domestic money market funds"</span> <span class="op">~</span> <span class="st">"4. Domestic money market funds"</span>,</span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Repurchase agreements"</span> <span class="op">~</span> <span class="st">"5. Repurchase agreements"</span>,</span>
+<span>      <span class="va">type</span> <span class="op">==</span> <span class="st">"Uninsured deposits"</span> <span class="op">~</span> <span class="st">"6. Uninsured deposits"</span>,</span>
+<span>      .default <span class="op">=</span> <span class="st">"N/A"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>type<span class="op">=</span><span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">fct_rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="co">#dplyr::mutate(type=factor(type)) |&gt; </span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">value</span>, fill<span class="op">=</span><span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_area</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="va">linewidth</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_area</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="va">linewidth</span>, key_glyph<span class="op">=</span><span class="va">draw_key_square</span>, outline.type<span class="op">=</span><span class="st">"full"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># TBH looks better with color="white"...</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"Billions of dollars"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_hline_zero.html">geom_hline_zero</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html" class="external-link">scale_x_date</a></span><span class="op">(</span>minor_breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span>, to<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>, by<span class="op">=</span><span class="st">"1 years"</span><span class="op">)</span>,</span>
@@ -135,14 +152,36 @@ functions:</p>
 <span>               date_labels<span class="op">=</span><span class="st">"%Y"</span>,</span>
 <span>               expand<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult<span class="op">=</span><span class="fl">.05</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>sec.axis <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">dup_axis</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                   breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">600</span>, by<span class="op">=</span><span class="fl">200</span><span class="op">)</span>,</span>
-<span>                   limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">600</span><span class="op">)</span>,</span>
+<span>                   breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500</span>, by<span class="op">=</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>                   limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500</span><span class="op">)</span>,</span>
 <span>                   expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
 <span>                   labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>style_negative <span class="op">=</span> <span class="st">"minus"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co">#annotate_last_date() + # nudge_y = -3, nudge_x = 300) +</span></span>
-<span>  <span class="fu"><a href="../reference/theme_fed.html">theme_fed</a></span><span class="op">(</span>legend_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.7</span><span class="op">)</span>,</span>
-<span>            fill_palette<span class="op">=</span><span class="fu">fedplot</span><span class="fu">::</span><span class="va"><a href="../reference/bsvr_colors.html">bsvr_colors</a></span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/annotate_last_date.html">annotate_last_date</a></span><span class="op">(</span>nudge_y <span class="op">=</span> <span class="fl">350</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="co"># Demo of how we could start implementing the number annotations...</span></span>
+<span>  <span class="co"># See also: https://stackoverflow.com/questions/10393956/add-direct-labels-to-ggplot2-geom-area-chart</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">maxdate</span>, y<span class="op">=</span><span class="fl">330</span>, xend<span class="op">=</span><span class="va">maxdate</span><span class="op">+</span><span class="fl">120</span>, yend<span class="op">=</span><span class="fl">360</span><span class="op">)</span>, linewidth<span class="op">=</span><span class="va">linewidth</span>, lineend<span class="op">=</span><span class="st">"round"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x<span class="op">=</span><span class="va">maxdate</span><span class="op">+</span><span class="fl">150</span>, y<span class="op">=</span><span class="fl">360</span>, label<span class="op">=</span><span class="st">"1"</span>, size<span class="op">=</span><span class="va">font_size</span>, family<span class="op">=</span><span class="va">font_family</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">maxdate</span>, y<span class="op">=</span><span class="fl">300</span>, xend<span class="op">=</span><span class="va">maxdate</span><span class="op">+</span><span class="fl">120</span>, yend<span class="op">=</span><span class="fl">300</span><span class="op">)</span>, linewidth<span class="op">=</span><span class="va">linewidth</span>, lineend<span class="op">=</span><span class="st">"round"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x<span class="op">=</span><span class="va">maxdate</span><span class="op">+</span><span class="fl">150</span>, y<span class="op">=</span><span class="fl">300</span>, label<span class="op">=</span><span class="st">"2"</span>, size<span class="op">=</span><span class="va">font_size</span>, family<span class="op">=</span><span class="va">font_family</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="co"># Hack to add an outline around the stacked area geom</span></span>
+<span>  <span class="co">#geom_line(aes(ymax=value), position="stack", linewidth=linewidth) +</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>ncol<span class="op">=</span><span class="fl">2</span>, reverse<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_fed.html">theme_fed</a></span><span class="op">(</span>legend_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.38</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>            fill_palette<span class="op">=</span><span class="fu">fedplot</span><span class="fu">::</span><span class="va"><a href="../reference/bsvr_colors.html">bsvr_colors</a></span><span class="op">)</span></span></code></pre></div>
 <p><img src="areaplots_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p>Note that to achieve the exact ordering used in the FSR (where the
+stacked areas have a reverse order but the legend has an alphabetical
+order) we can use several two tricks:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html" class="external-link">forcats::fct_rev</a></code> to reverse the order of the
+<code>type</code> variable (see also <a href="https://wilkelab.org/SDS375/slides/getting-things-in-order.htm" class="external-link">this
+link</a>).</li>
+<li>Call <code><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend()</a></code> with the <code>reverse=TRUE</code>
+option.</li>
+</ol>
 <p>Lastly, we want to export the chart so it matches the required
 dimensions and other image characteristics:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -158,7 +197,9 @@ this:</p>
 <h2 id="pending-tasks">Pending tasks:<a class="anchor" aria-label="anchor" href="#pending-tasks"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>Get data in percent of GDP instead of USD.</li>
+<li>Add the pattern area, using <a href="https://coolbutuseless.github.io/package/ggpattern/" class="external-link">ggpattern</a>.</li>
+<li>Get data in percent of GDP instead of USD. Also check the actual
+values for the OTHER category.</li>
 <li>Get correct colors</li>
 <li>Add numbers to legends and annotations</li>
 <li>Add black stripped area for the period from 2008:Q4 to 2012:Q4</li>
