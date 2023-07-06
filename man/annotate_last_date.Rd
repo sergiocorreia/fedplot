@@ -48,6 +48,8 @@ annotate_last_date(
 
 \item{nudge_y}{Manually nudge the y-axis of the text. Alternative to the \code{repel} option.}
 
+\item{hjust}{Horizontal justification; range is 0 to 1; default is 0.5 (centered).}
+
 \item{repel}{If set to \code{TRUE}, will try to reposition the text label to avoid overlapping it with other elements of the plot (such as the lines). It relies on the \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} function of the \link{ggrepel} package.}
 
 \item{box.padding}{Amount of padding around bounding box, as unit or number.

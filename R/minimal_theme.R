@@ -94,16 +94,14 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     legend.spacing.x = grid::unit(2, 'bigpts'),
     legend.margin = ggplot2::margin(0,0,0,0),
     legend.box.margin = ggplot2::margin(0,0,0,0),
-    legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=2)),
+    legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=1, b=1)),
 
     # Entire plot
+    plot.margin = ggplot2::margin(t=.26, r=.26, b=.26, l=.26), # margin=1 works well on Windows but not on Fed Linux
+    plot.background = ggplot2::element_blank(),
+    #plot.background = element_rect(fill=NA, colour="red", linewidth=5),
 
-    plot.margin = ggplot2::margin(.3, 0, 0, 0), # margin=1 works well on Windows but not on Fed Linux
-    #plot.margin = ggplot2::margin(4, 4, 4, 4),
-    #plot.margin = ggplot2::margin(6, 6, 6, 6),
-    #plot.margin = ggplot2::margin(0, 0, 0, 0),
-
-    #plot.background = ggplot2::element_rect(color='red', fill=NA),
+    # Panels
     panel.background = ggplot2::element_blank(), #This sets the panel background as blank, removing the standard grey ggplot background colour from the plot
 
     #grid elements

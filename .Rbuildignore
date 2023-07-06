@@ -5,6 +5,7 @@
 ^docs$
 ^internal$
 ^pkgdown$
+^static$
 ^image*.*$
 ^example*.*$
 ^DEVELOPMENT.md$

@@ -91,7 +91,7 @@ annotate_top_tick <- function() {
 #' @param color Color of the text. Defaults to `black`.
 #' @param nudge_x Manually nudge the x-axis of the text. Alternative to the `repel` option.
 #' @param nudge_y Manually nudge the y-axis of the text. Alternative to the `repel` option.
-#  @param hjust Horizontal justification; range is 0 to 1; default is 0.5 (centered).
+#' @param hjust Horizontal justification; range is 0 to 1; default is 0.5 (centered).
 #' @param repel If set to `TRUE`, will try to reposition the text label to avoid overlapping it with other elements of the plot (such as the lines). It relies on the [ggrepel::geom_text_repel()] function of the [ggrepel] package.
 #' @param text_aes Named list, additional aesthetics to send to the geometry.
 #' @inheritParams ggrepel::geom_text_repel
@@ -359,25 +359,39 @@ get_frequency <- function(plot) {
 #' to the required geometries (`geom_col`, etc.).
 #' See this \href{https://stackoverflow.com/questions/65812949/set-standard-legend-key-size-with-long-label-names-ggplot}{stack overflow thread} for more details,
 #' and \href{https://www.emilhvitfeldt.com/post/changing-glyph-in-ggplot2/}{this page} for examples of other legend key functions.
+#'
 
-
+#' @return A grid grob.
 #' @export
-#' @rdname draw_key
+#' @param data A single row data frame containing the scaled aesthetics to
+#'   display in this key
+#' @param params A list of additional parameters supplied to the geom.
+#' @param size Width and height of key in mm.
+#' @examples
+#' library(ggplot2)
+#' p <- ggplot(FSR_4_1, aes(date, value, fill=type))
+#' # key glyphs can be specified by their name
+#' p + geom_col(key_glyph = "square")
+#'
+#' # key glyphs can be specified via their drawing function
+#' p + geom_col(key_glyph = draw_key_square)
 # -------------------------------------------------------------------------
 draw_key_square <- function(data, params, size) {
   if (is.null(data$size)) {
     data$size <- 0.5
   }
 
-  # BUGBUG / TODO: get rid of this hack
+  # BUGBUG: can/should we get rid of this hack?
   data$size <- getOption("fedplot.linewidth_adj") * 0.25
 
   lwd <- min(data$size, min(size) / 4)
 
   grid::rectGrob(
-    width = unit(1, "snpc") - unit(lwd, "mm"),
-    height = unit(1, "snpc") - unit(lwd, "mm"),
-    gp = gpar(
+    x = unit(.5, "npc"),
+    y = unit(.5, "npc"),
+    width = grid::unit(1, "snpc") - grid::unit(lwd, "mm"),
+    height = grid::unit(1, "snpc") - grid::unit(lwd, "mm"),
+    gp = grid::gpar(
       col = data$colour %||% NA,
       fill = scales::alpha(data$fill %||% "grey20", data$alpha),
       lty = data$linetype %||% 1,

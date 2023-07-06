@@ -6,10 +6,30 @@
 \usage{
 draw_key_square(data, params, size)
 }
+\arguments{
+\item{data}{A single row data frame containing the scaled aesthetics to
+display in this key}
+
+\item{params}{A list of additional parameters supplied to the geom.}
+
+\item{size}{Width and height of key in mm.}
+}
+\value{
+A grid grob.
+}
 \description{
 By \href{https://github.com/tidyverse/ggplot2/issues/3669}{default}, legends of bar plots and area plots use the \code{draw_key_polygon} function
 to draw a rectangle as high as the text height. \code{fedplot} instead uses square legends, achieved by passing the argument \code{key_glyph=draw_key_square}
 to the required geometries (\code{geom_col}, etc.).
 See this \href{https://stackoverflow.com/questions/65812949/set-standard-legend-key-size-with-long-label-names-ggplot}{stack overflow thread} for more details,
 and \href{https://www.emilhvitfeldt.com/post/changing-glyph-in-ggplot2/}{this page} for examples of other legend key functions.
+}
+\examples{
+library(ggplot2)
+p <- ggplot(FSR_4_1, aes(date, value, fill=type))
+# key glyphs can be specified by their name
+p + geom_col(key_glyph = "square")
+
+# key glyphs can be specified via their drawing function
+p + geom_col(key_glyph = draw_key_square)
 }

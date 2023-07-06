@@ -27,6 +27,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r, include= TRUE, echo = TRUE}
+devtools::load_all()
 library(ggplot2)
 library(dplyr, warn.conflict=FALSE)
 library(fedplot)
@@ -62,7 +63,7 @@ levels <- c("Institutional leveraged loans", "High-yield and unrated bonds")
 FSR_2_4 |>
   dplyr::mutate(type = factor(risky_debt_type, levels=levels)) |>
   ggplot(aes(x = date, y = value, fill=type)) +
-  geom_col(color="black", linewidth=linewidth, width=60, key_glyph=draw_key_square) + # Width is in days
+  geom_col(color="black", linewidth=linewidth, width=60, key_glyph="square") + # Width is in days
   labs(y="Billions of dollars") +
   geom_hline_zero() +
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),

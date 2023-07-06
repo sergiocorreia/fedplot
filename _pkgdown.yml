@@ -28,6 +28,7 @@ reference:
       - geom_hline_zero
       - annotate_last_date
       - scale_x_year
+      - draw_key_square
       - save_plot
       - fontsupport
 
