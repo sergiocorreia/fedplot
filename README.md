@@ -26,14 +26,14 @@ ggplot(plotdata, aes(x = Date, y = value, group=source)) +
   scale_x_date(minor_breaks=seq(from=as.Date("2003-01-01"), to=as.Date("2023-01-01"), by="1 years"),
                breaks=seq(from=as.Date("2004-06-30"), to=as.Date("2023-06-30"), by="3 years"),
                date_labels="%Y",
-               expand=expansion(mult=.05)) +
+               expand=expansion(mult=.10)) +
   scale_y_continuous(sec.axis = dup_axis(),
                      breaks = seq(-25, 25, by=5),
                      limits = c(-25, 25),
                      expand = expansion(mult=0),
                      labels = scales::label_number(style_negative = "minus")) +
-  annotate_last_date(nudge_y = -3, nudge_x = 300)
-  theme_fed(legend_position = c(.8, .1))
+  annotate_last_date(nudge_y = -3, nudge_x = 0) +
+  theme_fed(legend_position = c(.55, .5))
 
 save_plot('my-figure', size='narrow', extension='png')
 ```

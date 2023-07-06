@@ -14,14 +14,14 @@
 #'
 #' @param font_family base font family
 #' @param font_size base font family and size
-#' @param legend_position where to place the legend; default is `c(.9, .1)`
+#' @param legend_position where to place the legend; a tuple indicating the top- and left-most corners of the legend. Default is `c(.5, .9)`.
 #'
 #' @export
 # -------------------------------------------------------------------------
 
 theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
                               font_size = getOption("fedplot.font_size"),
-                              legend_position = c(.9, .1)) {
+                              legend_position = c(.5, .9)) {
 
   fed_linewidth = 0.5 * (2.54 / 72 / 0.075)
   # 0.5     = pubtech linewidth in points
@@ -86,15 +86,15 @@ theme_fed_minimal <- function(font_family = getOption("fedplot.font_family"),
     # Legend
     legend.title = ggplot2::element_blank(),
     legend.position = legend_position, # c(.9, .1),
-    legend.justification = c("right", "bottom"),
+    legend.justification = c("left", "top"),
     legend.box.background = ggplot2::element_blank(), # fill='transparent'),
     legend.background = ggplot2::element_blank(), # fill='transparent'),
     legend.key.height = grid::unit(5.75, 'bigpts'),
     legend.key.width = grid::unit(5.75, 'bigpts'),
-    legend.spacing.x = grid::unit(2, 'bigpts'),
+    legend.spacing.x = grid::unit(2, 'bigpts'), # Space between legend symbol and legend text
     legend.margin = ggplot2::margin(0,0,0,0),
     legend.box.margin = ggplot2::margin(0,0,0,0),
-    legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=1, b=1)),
+    legend.text = ggplot2::element_text(size=small_font_size, margin = ggplot2::margin(t=1, b=1, l=0, r=6)),
 
     # Entire plot
     plot.margin = ggplot2::margin(t=.26, r=.26, b=.26, l=.26), # margin=1 works well on Windows but not on Fed Linux

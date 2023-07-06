@@ -7,7 +7,7 @@
 theme_fed_minimal(
   font_family = getOption("fedplot.font_family"),
   font_size = getOption("fedplot.font_size"),
-  legend_position = c(0.9, 0.1)
+  legend_position = c(0.5, 0.9)
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ theme_fed_minimal(
 
 \item{font_size}{base font family and size}
 
-\item{legend_position}{where to place the legend; default is \code{c(.9, .1)}}
+\item{legend_position}{where to place the legend; a tuple indicating the top- and left-most corners of the legend. Default is \code{c(.5, .9)}.}
 }
 \description{
 The \code{theme_fed()} object is composed of a theme, plus a number of functions
