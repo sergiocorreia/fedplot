@@ -47,6 +47,7 @@ reference:
       - GeomLastDateRepel
       - load_fed_font
       - customproto
+      - set_plot_size
 
   - title: Color palettes
     desc: Predefined color palettes
