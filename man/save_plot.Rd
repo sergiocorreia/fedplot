@@ -8,10 +8,7 @@ save_plot(
   filename,
   extension = c("pdf", "eps", "png", "all"),
   path = NULL,
-  size = c("narrow", "wide", "box_narrow", "box_wide", "slides", "custom"),
   scale = 1,
-  height = NULL,
-  width = NULL,
   dpi = 300,
   plot = ggplot2::last_plot(),
   ...
@@ -24,13 +21,7 @@ save_plot(
 
 \item{path}{path where the file(s) will be saved}
 
-\item{size}{dimensions of the figure. For instance, 'narrow' creates default figures of 192x99 points. Valid values are c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'). Note that 'slides' will produce a 192x161 figure, ideal for two-pane Powerpoint slides.}
-
 \item{scale}{rescaling done by \link[ggplot2:ggsave]{ggplot2::ggsave}; experimental.}
-
-\item{height}{height of the figure in points (technically; bigpoints); useful when size='custom'.}
-
-\item{width}{height of the figure in points (technically; bigpoints); useful when size='custom'.}
 
 \item{dpi}{dots per inch of the output file(s). Typical values are 300 for print (the default) and rarely 72 for web image output. Note that for png images \code{save_plot()} multiples the dpi by 2, to compensate for the lower quality compared to vector formats (pdf, eps). Thus, the default dpi for png images is 600.}
 

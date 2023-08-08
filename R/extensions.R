@@ -347,10 +347,6 @@ get_frequency <- function(plot) {
 }
 
 
-
-
-
-
 # -------------------------------------------------------------------------
 #' Square legends
 #'
@@ -399,4 +395,74 @@ draw_key_square <- function(data, params, size) {
       linejoin = params$linejoin %||% "mitre",
       lineend = params$lineend %||% "butt"
   ))
+}
+
+
+# -------------------------------------------------------------------------
+#' Set plot size
+#'
+#' This function sets the size of the plot, in big points.
+#' By default, it will create a figure with width equal to 192bp and
+#' panel height (not total figure height!) equal to 99bp.
+#' It supports other present sizes as well as custom sizes.
+
+#' @return A `ggh4x::forcedsize` S3 object that can be added to a plot.
+#' @param size dimensions of the figure. For instance, 'narrow' creates default figures of 192x99 points. Valid values are c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'). Note that 'slides' will produce a 192x161 figure, ideal for two-pane Powerpoint slides.
+#' @param plot_height height of the figure in points (technically; bigpoints); useful when size='custom'.
+#' @param plot_width height of the figure in points (technically; bigpoints); useful when size='custom'.
+#' @param panel_height height of the panel in points (technically; bigpoints); useful when size='custom'.
+#' @param panel_width height of the panel in points (technically; bigpoints); useful when size='custom'.
+#' @export
+# -------------------------------------------------------------------------
+set_plot_size <- function(size = c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'),
+                          plot_height = NULL,
+                          plot_width = NULL,
+                          panel_height = NULL,
+                          panel_width = NULL) {
+
+  size <- match.arg(size)
+
+  # Define height and width based on plot size
+  # By default, we want the plot width to be fixed
+  # But only the panel height is fixed (so the plot can be taller if we use long titles or footnotes)
+  if (is.null(plot_width) && is.null(panel_width)) {
+    plot_width <- switch(size,
+                         narrow = 192,
+                         wide = 420,
+                         box_narrow = 180,
+                         box_wide = 396,
+                         slides = 192)
+  }
+  if (is.null(plot_height) && is.null(panel_height)) {
+    panel_height <- switch(size,
+                           slides = 161,
+                           99)
+  }
+
+  # If both panel and plot heights are set, we prefer the panel height
+  if (!is.null(panel_height)) {
+    panel_height <- grid::unit(panel_height, "bigpts")
+    plot_height <- NULL
+  }
+
+  if (!is.null(plot_height)) {
+    plot_height <- grid::unit(plot_height, "bigpts")
+    plot_height <- grid::convertUnit(plot_height, "points")
+  }
+
+  # If both panel and plot widths are set, we prefer the plot width
+  if (!is.null(plot_width)) {
+    plot_width <- grid::unit(plot_width, "bigpts")
+    plot_width  <- grid::convertUnit(plot_width, "points")
+    panel_width <- NULL
+  }
+
+  if (!is.null(panel_width)) {
+    panel_width <- grid::unit(panel_width, "bigpts")
+  }
+
+  ggh4x::force_panelsizes(rows = panel_height,
+                          cols = panel_width,
+                          total_height = plot_height,
+                          total_width = plot_width)
 }

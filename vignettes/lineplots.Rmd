@@ -71,14 +71,12 @@ FSR_1_17 |>
   theme_fed(legend_position = c(.55, .5))
 ```
 
-Lastly, we want to export the chart so it matches the required dimensions and other image characteristics:
+Lastly, we want to export the chart so it matches the required image characteristics:
 
 ```{r, include = TRUE, echo = TRUE}
-save_plot('lineplot', size='wide', extension='all')
+save_plot('lineplot', extension='all')
 ```
 
 After exporting through `save_plot`, the chart looks like this:
 
-
 ![](lineplot.png)
-

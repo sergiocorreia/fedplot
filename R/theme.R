@@ -28,6 +28,8 @@
 #' @param fill_palette fill palette to use (either a string with the name or a vector)
 #' @param linewidth_palette linewidth palette to use (either a string with the name or a vector)
 #' @param frequency string indicating the date frequency; autodetected by default or when `frequency='default'`. Disabled when `frequency=''` (empty string). Supported frequencies are daily, weekly, monthly, quarterly, and annual; see `annotate_frequency() for more details`
+#' @param set_size Set to `FALSE` to disable plot resizing
+#' @inherit set_plot_size
 #'
 #' @examples \dontrun{
 #' library(ggplot2)
@@ -44,10 +46,18 @@
 theme_fed <- function(font_family = getOption("fedplot.font_family"),
                       font_size = getOption("fedplot.font_size"),
                       legend_position = c(.9, .1),
+                      frequency = "default",
+                      # Palettes
                       color_palette = "fsr_primary",
                       fill_palette = "fsr_primary",
                       linewidth_palette = "fsr_linewidths",
-                      frequency = "default") {
+                      # Plot size
+                      set_size = TRUE,
+                      size = 'narrow',
+                      plot_height = NULL,
+                      plot_width = NULL,
+                      panel_height = NULL,
+                      panel_width = NULL) {
   list(
     
     # Set palettes
@@ -75,6 +85,9 @@ theme_fed <- function(font_family = getOption("fedplot.font_family"),
 
     # Add frequency to top-left corner
     annotate_frequency(label = frequency, font_family = font_family, font_size = font_size * 7L / 8L),
+
+    # Set plot size
+    if (set_size) set_plot_size(size, plot_height, plot_width, panel_height, panel_width),
 
     # Use fed theme()
     theme_fed_minimal(font_family = font_family, font_size = font_size, legend_position = legend_position)

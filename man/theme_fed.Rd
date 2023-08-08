@@ -8,10 +8,16 @@ theme_fed(
   font_family = getOption("fedplot.font_family"),
   font_size = getOption("fedplot.font_size"),
   legend_position = c(0.9, 0.1),
+  frequency = "default",
   color_palette = "fsr_primary",
   fill_palette = "fsr_primary",
   linewidth_palette = "fsr_linewidths",
-  frequency = "default"
+  set_size = TRUE,
+  size = "narrow",
+  plot_height = NULL,
+  plot_width = NULL,
+  panel_height = NULL,
+  panel_width = NULL
 )
 }
 \arguments{
@@ -21,16 +27,34 @@ theme_fed(
 
 \item{legend_position}{where to place the legend; default is \code{c(.9, .1)}}
 
+\item{frequency}{string indicating the date frequency; autodetected by default or when \code{frequency='default'}. Disabled when \code{frequency=''} (empty string). Supported frequencies are daily, weekly, monthly, quarterly, and annual; see \verb{annotate_frequency() for more details}}
+
 \item{color_palette}{color palette to use (either a string with the name or a vector)}
 
 \item{fill_palette}{fill palette to use (either a string with the name or a vector)}
 
 \item{linewidth_palette}{linewidth palette to use (either a string with the name or a vector)}
 
-\item{frequency}{string indicating the date frequency; autodetected by default or when \code{frequency='default'}. Disabled when \code{frequency=''} (empty string). Supported frequencies are daily, weekly, monthly, quarterly, and annual; see \verb{annotate_frequency() for more details}}
+\item{set_size}{Set to \code{FALSE} to disable plot resizing}
+
+\item{size}{dimensions of the figure. For instance, 'narrow' creates default figures of 192x99 points. Valid values are c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'). Note that 'slides' will produce a 192x161 figure, ideal for two-pane Powerpoint slides.}
+
+\item{plot_height}{height of the figure in points (technically; bigpoints); useful when size='custom'.}
+
+\item{plot_width}{height of the figure in points (technically; bigpoints); useful when size='custom'.}
+
+\item{panel_height}{height of the panel in points (technically; bigpoints); useful when size='custom'.}
+
+\item{panel_width}{height of the panel in points (technically; bigpoints); useful when size='custom'.}
+}
+\value{
+A \code{ggh4x::forcedsize} S3 object that can be added to a plot.
 }
 \description{
-Fed-style \link{ggplot} theme
+This function sets the size of the plot, in big points.
+By default, it will create a figure with width equal to 192bp and
+panel height (not total figure height!) equal to 99bp.
+It supports other present sizes as well as custom sizes.
 }
 \examples{
 \dontrun{
