@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,10 +60,7 @@
 <span>  <span class="va">filename</span>,</span>
 <span>  extension <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pdf"</span>, <span class="st">"eps"</span>, <span class="st">"png"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
 <span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"narrow"</span>, <span class="st">"wide"</span>, <span class="st">"box_narrow"</span>, <span class="st">"box_wide"</span>, <span class="st">"slides"</span>, <span class="st">"custom"</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  plot <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -84,20 +81,8 @@
 <dd><p>path where the file(s) will be saved</p></dd>
 
 
-<dt>size</dt>
-<dd><p>dimensions of the figure. For instance, 'narrow' creates default figures of 192x99 points. Valid values are c('narrow', 'wide', 'box_narrow', 'box_wide', 'slides', 'custom'). Note that 'slides' will produce a 192x161 figure, ideal for two-pane Powerpoint slides.</p></dd>
-
-
 <dt>scale</dt>
 <dd><p>rescaling done by <a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave</a>; experimental.</p></dd>
-
-
-<dt>height</dt>
-<dd><p>height of the figure in points (technically; bigpoints); useful when size='custom'.</p></dd>
-
-
-<dt>width</dt>
-<dd><p>height of the figure in points (technically; bigpoints); useful when size='custom'.</p></dd>
 
 
 <dt>dpi</dt>

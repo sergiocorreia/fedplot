@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">fedplot</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@ Note that the sample dataset <code>FSR_2_4</code> is part of the
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"fedplot"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] '0.8.0'</span></span>
+<span><span class="co">#&gt; [1] '0.9.0'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">FSR_2_4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
 <span><span class="co">#&gt;   date       risky_debt_type                value</span></span>
@@ -154,15 +154,16 @@ functions:</p>
 <span>                   labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">label_number</a></span><span class="op">(</span>style_negative <span class="op">=</span> <span class="st">"minus"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/annotate_last_date.html">annotate_last_date</a></span><span class="op">(</span>nudge_y <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_fed.html">theme_fed</a></span><span class="op">(</span>legend_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.24</span>, <span class="fl">.95</span><span class="op">)</span>,</span>
-<span>            fill_palette<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#236192"</span>, <span class="st">"#DDCBA4"</span><span class="op">)</span><span class="op">)</span> <span class="co"># + theme(legend.key.height = grid::unit(0.75, 'bigpts'))</span></span></code></pre></div>
+<span>            fill_palette<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#236192"</span>, <span class="st">"#DDCBA4"</span><span class="op">)</span>,</span>
+<span>            size<span class="op">=</span><span class="st">'wide'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="barplots_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>Lastly, we want to export the chart so it matches the required
-dimensions and other image characteristics:</p>
+<p>Lastly, we want to export the chart so it matches the required image
+characteristics:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/save_plot.html">save_plot</a></span><span class="op">(</span><span class="st">'barplot'</span>, size<span class="op">=</span><span class="st">'wide'</span>, extension<span class="op">=</span><span class="st">'all'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; saved 'barplot.pdf' (99x420; size=wide; dpi=300)</span></span>
-<span><span class="co">#&gt; saved 'barplot.eps' (99x420; size=wide; dpi=300)</span></span>
-<span><span class="co">#&gt; saved 'barplot.png' (99x420; size=wide; dpi=600)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/save_plot.html">save_plot</a></span><span class="op">(</span><span class="st">'barplot'</span>, extension<span class="op">=</span><span class="st">'all'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; saved 'barplot.pdf' (1.69296638166501x6.15792557423551; dpi=300)</span></span>
+<span><span class="co">#&gt; saved 'barplot.eps' (1.69296638166501x6.15792557423551; dpi=300)</span></span>
+<span><span class="co">#&gt; saved 'barplot.png' (1.69296638166501x6.15792557423551; dpi=600)</span></span></code></pre></div>
 <p>After exporting through <code>save_plot</code>, the chart looks like
 this:</p>
 <p><img src="barplot.png"></p>
