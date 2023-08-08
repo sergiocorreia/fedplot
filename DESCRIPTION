@@ -1,7 +1,7 @@
 Type: Package
 Package: fedplot
 Title: Fed-style ggplot2 Theme
-Version: 0.8.0
+Version: 0.9.0
 Authors@R: c(
     person("Sergio", "Correia", , "sergio.a.correia@frb.gov", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0914-8648"))
   )

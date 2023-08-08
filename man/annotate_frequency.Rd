@@ -5,7 +5,7 @@
 \title{Add frequency label}
 \usage{
 annotate_frequency(
-  label = "",
+  label = "default",
   font_family = getOption("fedplot.font_family"),
   font_size = getOption("fedplot.font_size") * 7L/8L
 )

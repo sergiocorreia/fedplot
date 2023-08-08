@@ -27,7 +27,7 @@ theme_fed(
 
 \item{linewidth_palette}{linewidth palette to use (either a string with the name or a vector)}
 
-\item{frequency}{string indicating the date frequency; autodetected by default}
+\item{frequency}{string indicating the date frequency; autodetected by default or when \code{frequency='default'}. Disabled when \code{frequency=''} (empty string). Supported frequencies are daily, weekly, monthly, quarterly, and annual; see \verb{annotate_frequency() for more details}}
 }
 \description{
 Fed-style \link{ggplot} theme

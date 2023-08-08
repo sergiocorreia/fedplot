@@ -27,7 +27,7 @@
 #' @param color_palette color palette to use (either a string with the name or a vector)
 #' @param fill_palette fill palette to use (either a string with the name or a vector)
 #' @param linewidth_palette linewidth palette to use (either a string with the name or a vector)
-#' @param frequency string indicating the date frequency; autodetected by default
+#' @param frequency string indicating the date frequency; autodetected by default or when `frequency='default'`. Disabled when `frequency=''` (empty string). Supported frequencies are daily, weekly, monthly, quarterly, and annual; see `annotate_frequency() for more details`
 #'
 #' @examples \dontrun{
 #' library(ggplot2)

@@ -290,7 +290,7 @@ date2label <- function(x, frequency) {
 #' @return None
 #' @export
 # -------------------------------------------------------------------------
-annotate_frequency <- function(label = "",
+annotate_frequency <- function(label = "default",
                                font_family = getOption("fedplot.font_family"),
                                font_size = getOption("fedplot.font_size") * 7L / 8L) {
   gp <- grid::gpar(fontfamily = font_family, fontsize = font_size)
@@ -322,7 +322,7 @@ ggplot_add.annotate_frequency <- function(object, plot, object_name) {
 
   # Infer the frequency label if not provided by user
   frequency_label <- object$geom_params$grob$label
-  if (frequency_label == "default" || frequency_label == "") {
+  if (frequency_label == "default") {
     object$geom_params$grob$label <- get_frequency(plot)
   }
   plot$layers <- append(plot$layers, object)
